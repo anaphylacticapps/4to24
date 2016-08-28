@@ -217,10 +217,19 @@ function startBlocks(){
 }
 
 function newBlocks(){
-	if(!$('div[data-row='+JSON.stringify(dataRow-1)+'][data-column='+JSON.stringify(dataCol)+']').hasClass('selection') && !$('div[data-row='+JSON.stringify(dataRow-1)+'][data-column='+JSON.stringify(dataCol)+']').hasClass('highlight')){
-		$('div[data-row='+JSON.stringify(dataRow-1)+'][data-column='+JSON.stringify(dataCol)+']').addClass('highlight');
+	$('.highlight').removeClass('highlight');
+
+	for(y=1;y<10;y++){
+		for(x=1;x<10;x++){
+			if($('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
+				if(!$('div[data-row='+(y+1)+'][data-column='+x+']').hasClass('selection')){
+					$('div[data-row='+(y+1)+'][data-column='+x+']').addClass('highlight');
+				}
+			}else if(y==1 && !$('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
+				$('div[data-row='+y+'][data-column='+x+']').addClass('highlight');
+			}
+		}
 	}
-	//get the data column and data row of everything with class selection, subtract one from data row, and if that has no background, add class highlight
 }
 
 /*---------------
@@ -234,8 +243,8 @@ function insertBlocks(){
 			$(this).addClass('selection');
 			$(this).html('<p>'+myNumber+'</p>');
 
-			dataCol=JSON.parse($(this).attr('data-column'));
-			dataRow=JSON.parse($(this).attr('data-row'));
+			dataCol=parseInt($(this).attr('data-column'));
+			dataRow=parseInt($(this).attr('data-row'));
 
 			newBlocks();
 			setRandNum();
