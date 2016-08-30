@@ -251,10 +251,7 @@ function insertBlocks(){
 			newBlocks();
 			setRandNum();
 
-			shapeL(1,0,1,1,1,2);
-			shapeL(-1,0,0,1,0,2);
-			shapeL(-1,-1,0,-1,0,1);
-			shapeL(-1,-2,0,-2,0,-1);
+			shapeL();
 		}
 	});
 }
@@ -290,8 +287,8 @@ function replay(){
 SHAPES
 ---------------*/
 
-function shapeL(x1,y1,x2,y2,x3,y3){
-	if($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']') && $('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']') && $('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').hasClass('selection')){
+function myShape(x1,y1,x2,y2,x3,y3){
+	if($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').hasClass('selection') && $('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').hasClass('selection') && $('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').hasClass('selection')){
 		n1=parseInt($('div[data-row='+dataRow+'][data-column='+dataCol+'] p').html());
 		n2=parseInt($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+'] p').html());
 		n3=parseInt($('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+'] p').html());
@@ -304,4 +301,11 @@ function shapeL(x1,y1,x2,y2,x3,y3){
 			$('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').css('background', '#fff');
 		}
 	}
+}
+
+function shapeL(){
+	myShape(1,0,1,1,1,2);
+	myShape(-1,0,0,1,0,2);
+	myShape(-1,-1,0,-1,0,1);
+	myShape(-1,-2,0,-2,0,-1);
 }
