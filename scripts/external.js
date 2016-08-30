@@ -395,15 +395,15 @@ function shapeT(){
 
 function shapeZ(){
 	// Regular Z
-	myShape(0,1,-1,1,1,1);
-	myShape(-1,0,1,0,0,-1);
-	myShape(1,0,2,0,1,-1);
-	myShape(-1,0,-2,0,-1,-1);
+	myShape(1,0,1,-1,2,-1);
+	myShape(-1,0,0,-1,1,-1);
+	myShape(1,0,0,1,-1,1);
+	myShape(-1,0,-1,1,-2,1);
 	// Z flipped along y-axis
-	myShape(1,0,1,1,2,1);
-	myShape(-1,0,0,1,1,1);
-	myShape(1,0,0,-1,-1,-1);
 	myShape(-1,0,-1,-1,-2,-1);
+	myShape(1,0,0,-1,-1,-1);
+	myShape(0,1,-1,0,1,1);
+	myShape(1,0,1,1,2,1);
 	//Z rotated 90 degrees clockwise
 	myShape(0,1,1,1,1,2);
 	myShape(0,-1,1,0,1,1);
