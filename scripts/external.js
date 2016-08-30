@@ -330,12 +330,12 @@ function shapeL(){
 	myShape(0,1,-1,0,-2,0);
 	myShape(-1,0,1,0,1,1);
 	myShape(1,0,2,0,2,1);
-	// L rotated 90 degrees counter-clockwise and flipped across x-axis
-	myShape(0,-1,1,1,2,1);
+	// L rotated 90 degrees counter-clockwise and flipped across y-axis
+	myShape(0,-1,1,-1,2,-1);
 	myShape(0,1,1,0,2,0);
 	myShape(-1,0,1,0,-1,1);
 	myShape(-1,0,-2,0,-2,1);
-	// L rotated 90 degrees counter-clockwise and flipped across y-axis
+	// L rotated 90 degrees counter-clockwise and flipped across x-axis
 	myShape(0,1,-1,1,-2,1);
 	myShape(0,-1,-1,0,-2,0);
 	myShape(-1,0,1,0,1,-1);
