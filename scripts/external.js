@@ -252,6 +252,7 @@ function insertBlocks(){
 			setRandNum();
 
 			shapeL();
+			shapeSquare();
 		}
 	});
 }
@@ -304,8 +305,51 @@ function myShape(x1,y1,x2,y2,x3,y3){
 }
 
 function shapeL(){
+	// Regular L
+	myShape(-1,0,-1,1,-1,2);
+	myShape(1,0,0,1,0,2);
+	myShape(1,-1,0,-1,0,1);
+	myShape(1,-2,0,-2,0,-1);
+	// L flipped across y-axis
 	myShape(1,0,1,1,1,2);
 	myShape(-1,0,0,1,0,2);
 	myShape(-1,-1,0,-1,0,1);
 	myShape(-1,-2,0,-2,0,-1);
+	// L flipped across x-axis
+	myShape(-1,0,-1,-1,-1,-2);
+	myShape(1,0,0,-1,0,-2);
+	myShape(1,1,0,1,0,-1);
+	myShape(1,2,0,2,0,1);
+	// L flipped across x-axis and y-axis
+	myShape(1,0,1,-1,1,-2);
+	myShape(-1,0,0,-1,0,-2);
+	myShape(-1,1,0,1,0,-1);
+	myShape(-1,2,0,2,0,1);
+	// L rotated 90 degrees counter-clockwise
+	myShape(0,-1,-1,-1,-2,-1);
+	myShape(0,1,-1,0,-2,0);
+	myShape(-1,0,1,0,1,1);
+	myShape(1,0,2,0,2,1);
+	// L rotated 90 degrees counter-clockwise and flipped across x-axis
+	myShape(0,-1,1,1,2,1);
+	myShape(0,1,1,0,2,0);
+	myShape(-1,0,1,0,-1,1);
+	myShape(-1,0,-2,0,-2,1);
+	// L rotated 90 degrees counter-clockwise and flipped across y-axis
+	myShape(0,1,-1,1,-2,1);
+	myShape(0,-1,-1,0,-2,0);
+	myShape(-1,0,1,0,1,-1);
+	myShape(1,0,2,0,2,-1);
+	// L rotated 90 degrees counter-clockwise and flipped across y-axis and y-axis
+	myShape(0,1,1,1,2,1);
+	myShape(0,-1,1,0,2,0);
+	myShape(-1,0,1,0,-1,-1);
+	myShape(-1,0,-2,0,-2,-1);
+}
+
+function shapeSquare(){
+	myShape(1,0,1,-1,0,-1);
+	myShape(-1,0,-1,-1,0,-1);
+	myShape(-1,0,-1,-1,0,1);
+	myShape(1,0,1,1,0,1);
 }
