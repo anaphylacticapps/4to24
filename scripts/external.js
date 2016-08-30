@@ -253,6 +253,9 @@ function insertBlocks(){
 
 			shapeL();
 			shapeSquare();
+			shapeLine();
+			shapeT();
+			shapeZ();
 		}
 	});
 }
@@ -352,4 +355,63 @@ function shapeSquare(){
 	myShape(-1,0,-1,-1,0,-1);
 	myShape(-1,0,-1,-1,0,1);
 	myShape(1,0,1,1,0,1);
+}
+
+function shapeLine(){
+	// Vertical line
+	myShape(0,1,0,2,0,3);
+	myShape(0,-1,0,1,0,2);
+	myShape(0,-2,0,-1,0,1);
+	myShape(0,-3,0,-2,0,-1);
+	// Horizontal line
+	myShape(1,0,2,0,3,0);
+	myShape(-1,0,1,0,2,0);
+	myShape(-2,0,-1,0,1,0);
+	myShape(-3,0,-2,0,-1,0);
+}
+
+function shapeT(){
+	// Regular T
+	myShape(0,1,-1,1,1,1);
+	myShape(-1,0,1,0,0,-1);
+	myShape(1,0,2,0,1,-1);
+	myShape(-1,0,-2,0,-1,-1);
+	// Upside down T
+	myShape(0,-1,-1,-1,1,-1);
+	myShape(-1,0,1,0,0,1);
+	myShape(1,0,2,0,1,1);
+	myShape(-1,0,-2,0,-1,1);
+	// T rotated 90 degrees counter-clockwise
+	myShape(-1,0,-1,1,-1,-1);
+	myShape(1,0,0,1,0,-1);
+	myShape(0,-1,0,-2,1,-1);
+	myShape(0,1,0,2,1,1);
+	// T rotated 90 degrees clockwise
+	myShape(1,0,1,1,1,-1);
+	myShape(-1,0,0,1,0,-1);
+	myShape(0,1,0,2,-1,1);
+	myShape(0,-1,0,-2,-1,-1);
+}
+
+function shapeZ(){
+	// Regular Z
+	myShape(0,1,-1,1,1,1);
+	myShape(-1,0,1,0,0,-1);
+	myShape(1,0,2,0,1,-1);
+	myShape(-1,0,-2,0,-1,-1);
+	// Z flipped along y-axis
+	myShape(1,0,1,1,2,1);
+	myShape(-1,0,0,1,1,1);
+	myShape(1,0,0,-1,-1,-1);
+	myShape(-1,0,-1,-1,-2,-1);
+	//Z rotated 90 degrees clockwise
+	myShape(0,1,1,1,1,2);
+	myShape(0,-1,1,0,1,1);
+	myShape(-1,0,-1,-1,0,1);
+	myShape(0,-1,-1,-1,-1,-2);
+	// Z rotated 90 degrees clockwise then flipped along x-axis
+	myShape(0,1,-1,1,-1,2);
+	myShape(0,-1,-1,0,-1,1);
+	myShape(1,0,1,-1,0,1);
+	myShape(0,-1,1,-1,1,-2);
 }
