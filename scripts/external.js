@@ -45,7 +45,7 @@ function setHeight(){
 	blockWidth=$('.block-group div').width();
 
 	$('.block-group').height(blockWidth);
-	$('.block-area').height(blockWidth*9);
+	$('.block-area').height(blockWidth*8);
 
 	$('.number').height(blockWidth);
 
@@ -248,14 +248,28 @@ function insertBlocks(){
 			dataCol=parseInt($(this).attr('data-column'));
 			dataRow=parseInt($(this).attr('data-row'));
 
-			newBlocks();
-			setRandNum();
-
 			shapeL();
 			shapeSquare();
 			shapeLine();
 			shapeT();
 			shapeZ();
+
+			$('.winner').addClass('gagnant');
+
+			if($('.winner').hasClass('gagnant')){
+				setTimeout(function(){
+					$('.winner').removeClass('selection');
+					$('.winner').empty();
+					$('.winner').removeClass('gagnant');
+					$('.winner').removeClass('winner');
+
+					newBlocks();
+					setRandNum();
+				},500);
+			}else{
+				newBlocks();
+				setRandNum();
+			}
 		}
 	});
 }
@@ -299,10 +313,10 @@ function myShape(x1,y1,x2,y2,x3,y3){
 		n4=parseInt($('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+'] p').html());
 
 		if(n1+n2+n3+n4==24){
-			$('div[data-row='+dataRow+'][data-column='+dataCol+']').css('background', '#fff');
-			$('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').css('background', '#fff');
-			$('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').css('background', '#fff');
-			$('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').css('background', '#fff');
+			$('div[data-row='+dataRow+'][data-column='+dataCol+']').addClass('winner');
+			$('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').addClass('winner');
+			$('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').addClass('winner');
+			$('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').addClass('winner');
 		}
 	}
 }
