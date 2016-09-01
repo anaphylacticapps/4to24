@@ -353,7 +353,7 @@ function shapeL(){
 function shapeSquare(){
 	myShape(1,0,1,-1,0,-1);
 	myShape(-1,0,-1,-1,0,-1);
-	myShape(-1,0,-1,-1,0,1);
+	myShape(-1,0,-1,1,0,1);
 	myShape(1,0,1,1,0,1);
 }
 
