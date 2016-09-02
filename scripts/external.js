@@ -186,21 +186,29 @@ SET RANDOM NUMBER
 ---------------*/
 
 function setRandNum(){
-	$('.block-group div').addClass('no-clicky');	
+	var gameBlocks=document.querySelectorAll('.block-group div');
+	
+	for(var i=0; i<gameBlocks.length;i++){
+		gameBlocks[i].classList.add('no-clicky');
+	}
 
-	if($('.number-area p').html()==''){
+	if(document.querySelector('.number-area p').innerHTML==''){
 		myNumber=Math.floor((Math.random()*9)+1);
-		$('.number-area p').html(myNumber);
-		$('.block-group div').removeClass('no-clicky');
+		document.querySelector('.number-area p').innerHTML=myNumber;
+		for(var i=0; i<gameBlocks.length;i++){
+			gameBlocks[i].classList.remove('no-clicky');
+		}
 	}else{
 		var i=1;
 		numInterval=setInterval(function(){
 			myNumber=Math.floor((Math.random()*9)+1);
-			$('.number-area p').html(myNumber);
+			document.querySelector('.number-area p').innerHTML=myNumber;
 			
 			if(i==20){
 				clearInterval(numInterval);
-				$('.block-group div').removeClass('no-clicky');	
+				for(var j=0; j<gameBlocks.length;j++){
+					gameBlocks[j].classList.remove('no-clicky');
+				}
 			}
 			
 			i++;
@@ -213,20 +221,34 @@ HIGHLIGHT BLOCKS
 ---------------*/
 
 function startBlocks(){
-	$('.block-area .block-group:last-child div').addClass('highlight');
+	var firstRow=document.querySelectorAll('.block-area .block-group:last-child div');
+
+	for(var i=0; i<firstRow.length;i++){
+		firstRow[i].classList.add('highlight');
+	}
 }
 
 function newBlocks(){
-	$('.highlight').removeClass('highlight');
+	var currBlock;
+	var aboveBlock;
+	var hlBlocks=document.querySelectorAll('.highlight');
+	
+	for(var i=0; i<hlBlocks.length;i++){
+		hlBlocks[i].classList.remove('highlight');
+	}
 
-	for(y=1;y<10;y++){
-		for(x=1;x<10;x++){
-			if($('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
-				if(!$('div[data-row='+(y+1)+'][data-column='+x+']').hasClass('selection')){
-					$('div[data-row='+(y+1)+'][data-column='+x+']').addClass('highlight');
+	for(var y=1;y<9;y++){
+		for(var x=1;x<9;x++){
+			currBlock=document.querySelector('div[data-row="'+y+'"][data-column="'+x+'"]');
+			aboveBlock=document.querySelector('div[data-row="'+(y+1)+'"][data-column="'+x+'"]');
+			check=(currBlock!=null && aboveBlock!=null);
+ 
+			if(check && document.querySelector('div[data-row="'+y+'"][data-column="'+x+'"]').classList.contains('selection')){
+				if(!document.querySelector('div[data-row="'+(y+1)+'"][data-column="'+x+'"]').classList.contains('selection')){
+					document.querySelector('div[data-row="'+(y+1)+'"][data-column="'+x+'"]').classList.add('highlight');
 				}
-			}else if(y==1 && !$('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
-				$('div[data-row='+y+'][data-column='+x+']').addClass('highlight');
+			}else if(y==1 && !document.querySelector('div[data-row="'+y+'"][data-column="'+x+'"]').classList.contains('selection')){
+				document.querySelector('div[data-row="'+y+'"][data-column="'+x+'"]').classList.add('highlight');
 			}
 		}
 	}
@@ -239,39 +261,50 @@ INSERT BLOCKS
 ---------------*/
 
 function insertBlocks(){
-	$('.block-group div').click(function(){
-		if($(this).hasClass('highlight')){
-			$(this).removeClass('highlight');
-			$(this).addClass('selection');
-			$(this).html('<p>'+myNumber+'</p>');
+	var gameBlocks=document.querySelectorAll('.block-group div');
 
-			dataCol=parseInt($(this).attr('data-column'));
-			dataRow=parseInt($(this).attr('data-row'));
+	for(var i=0; i<gameBlocks.length; i++){
+		gameBlocks[i].addEventListener('click', function(event){
+			var currentBlock = this;
+			if (this.classList.contains('highlight')){
+				this.classList.remove('highlight');	
+				this.classList.add('selection');
+				this.innerHTML='<p>'+myNumber+'</p>';
 
-			shapeL();
-			shapeSquare();
-			shapeLine();
-			shapeT();
-			shapeZ();
+				dataCol=parseInt(this.getAttribute('data-column'));
+				dataRow=parseInt(this.getAttribute('data-row'));
 
-			$('.winner').addClass('gagnant');
+				shapeL();
+				shapeSquare();
+				shapeLine();
+				shapeT();
+				shapeZ();
 
-			if($('.winner').hasClass('gagnant')){
-				setTimeout(function(){
-					$('.winner').removeClass('selection');
-					$('.winner').empty();
-					$('.winner').removeClass('gagnant');
-					$('.winner').removeClass('winner');
+				winnerBlocks=document.querySelectorAll('.winner');
 
+				if(winnerBlocks.length>0){
+					for(var j=0; j<winnerBlocks.length;j++){
+						winnerBlocks[j].classList.add('gagnant');
+					}
+
+					setTimeout(function(){
+						   for(var j=0; j<winnerBlocks.length;j++){
+							winnerBlocks[j].classList.remove('selection');
+							winnerBlocks[j].innerHTML='';
+							winnerBlocks[j].classList.remove('gagnant');
+							winnerBlocks[j].classList.remove('winner');
+						   }
+
+						  newBlocks();
+					 	  setRandNum();
+					}, 500);
+				}else{
 					newBlocks();
 					setRandNum();
-				},500);
-			}else{
-				newBlocks();
-				setRandNum();
+				}	
 			}
-		}
-	});
+		});
+	}
 }
 
 /*---------------
@@ -306,17 +339,25 @@ SHAPES
 ---------------*/
 
 function myShape(x1,y1,x2,y2,x3,y3){
-	if($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').hasClass('selection') && $('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').hasClass('selection') && $('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').hasClass('selection')){
-		n1=parseInt($('div[data-row='+dataRow+'][data-column='+dataCol+'] p').html());
-		n2=parseInt($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+'] p').html());
-		n3=parseInt($('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+'] p').html());
-		n4=parseInt($('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+'] p').html());
+	var currBlock=document.querySelector('div[data-row="'+dataRow+'"][data-column="'+dataCol+'"]');
+	var adjBlock1=document.querySelector('div[data-row="'+(dataRow+y1)+'"][data-column="'+(dataCol+x1)+'"]');
+	var adjBlock2=document.querySelector('div[data-row="'+(dataRow+y2)+'"][data-column="'+(dataCol+x2)+'"]');
+	var adjBlock3=document.querySelector('div[data-row="'+(dataRow+y3)+'"][data-column="'+(dataCol+x3)+'"]');
+
+	check=(adjBlock1!=null && adjBlock2!=null && adjBlock3!=null);
+
+	if(check && adjBlock1.classList.contains('selection') && adjBlock2.classList.contains('selection') && adjBlock3.classList.contains('selection')){
+
+		n1=parseInt(document.querySelector('div[data-row="'+dataRow+'"][data-column="'+dataCol+'"] p').innerHTML);
+		n2=parseInt(document.querySelector('div[data-row="'+(dataRow+y1)+'"][data-column="'+(dataCol+x1)+'"] p').innerHTML);
+		n3=parseInt(document.querySelector('div[data-row="'+(dataRow+y2)+'"][data-column="'+(dataCol+x2)+'"] p').innerHTML);
+		n4=parseInt(document.querySelector('div[data-row="'+(dataRow+y3)+'"][data-column="'+(dataCol+x3)+'"] p').innerHTML);
 
 		if(n1+n2+n3+n4==24){
-			$('div[data-row='+dataRow+'][data-column='+dataCol+']').addClass('winner');
-			$('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').addClass('winner');
-			$('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').addClass('winner');
-			$('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').addClass('winner');
+			currBlock.classList.add('winner');
+			adjBlock1.classList.add('winner');
+			adjBlock2.classList.add('winner');
+			adjBlock3.classList.add('winner');
 		}
 	}
 }
