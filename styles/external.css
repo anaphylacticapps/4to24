@@ -237,11 +237,15 @@ h1 span:last-child, .game-over h2 span:last-child{
 }
 
 .play-b{
-	top:42.5%;
+	top:35%;
 }
 
 .tut-b{
-	top:57.5%;
+	top:50%;
+}
+
+.highscore-b{
+	top:65%;
 }
 
 .main-area .fa-volume-up, .main-area .fa-volume-off, .info-area .fa-volume-up, .info-area .fa-volume-off{
@@ -260,9 +264,17 @@ h1 span:last-child, .game-over h2 span:last-child{
 	text-shadow:0px 0px 10px #0ff;
 }
 
+/**********
+*HIGHSCORE*
+**********/
+
+.highscore-container{
+	display:none;
+}
+
 .highscore{
 	position:absolute;
-	width:150px;
+	width:225px;
 	padding:10px;
 	font-family:'Bungee Hairline';
 	background:transparent;
@@ -273,16 +285,17 @@ h1 span:last-child, .game-over h2 span:last-child{
 	border-radius:50px;
 	text-shadow:0px 0px 10px #0ff;
 	border:3px dashed #0ff;
-	bottom:15px;
+	top:50%;
 	left:50%;
-	-webkit-transform:translateX(-50%);
-	height:35px;
+	-webkit-transform:translate(-50%,-50%);
+	height:225px;
 	animation:borderSwitch1 0.5s infinite;
+	z-index:1000;
 }
 
 .highscore p{
 	position:absolute;
-	font-size:1em;
+	font-size:1.5em;
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
@@ -290,29 +303,16 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .highscore-border{
 	position:absolute;
-	width:150px;
+	width:225px;
 	border:3px solid #666;
 	border-radius:50px;
+	top:50%;
 	left:50%;
-	-webkit-transform:translateX(-50%);
+	-webkit-transform:translate(-50%,-50%);
 	padding:10px;
-	height:35px;
-	bottom:15px;
+	height:225px;
 	animation:borderSwitch2 0.5s infinite;
-}
-
-@keyframes borderSwitch1{
-	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
-	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
-	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
-	100%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
-}
-
-@keyframes borderSwitch2{
-	0%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
-	45%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
-	55%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
-	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	z-index:1000;
 }
 
 /**********
@@ -399,6 +399,20 @@ h1 span:last-child, .game-over h2 span:last-child{
 @keyframes dot3{
 	0%{opacity:0;}
 	90%{opacity:1;}
+}
+
+@keyframes borderSwitch1{
+	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+	100%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+}
+
+@keyframes borderSwitch2{
+	0%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	45%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	55%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
 }
 
 /*@keyframes winner-gagnant{

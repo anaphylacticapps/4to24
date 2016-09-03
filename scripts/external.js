@@ -9,6 +9,7 @@ $(document).ready(function(){
 	toInfoText();
 	toPopUp();
 	toReplay();
+	toHighscore();
 	hideOverlay();
 
 	startBlocks();
@@ -135,10 +136,18 @@ function toInfoText(){
 	})
 }
 
+function toHighscore(){
+	$('.highscore-b').click(function(){
+		$('.highscore-container').show();
+		$('.overlay').show();
+	});
+}
+
 function hideOverlay(){
 	$('.overlay').click(function(){
 		$('.pp-text').hide();
 		$('.tou-text').hide();
+		$('.highscore-container').hide();
 		$('.game-over').hide();
 		$('.overlay').hide();
 
