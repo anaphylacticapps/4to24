@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	window.addEventListener('resize',setHeight);
 	setHeight();
-	setHighscore();
 
 	toPlay();
 	toMain();
@@ -18,36 +17,25 @@ $(document).ready(function(){
 	setMusic();
 
 	bgAnimate();
-	
-	cacheGrid();
 
 	$('.loading').hide();
 });
 
 /*---------------
-VARIABLE DECLERATIONS
+VARIABLE DECLARATIONS
 ---------------*/
 
 var blockWidth;
 
 var myNumber;
-var score=0;
-var highscore;
-
 var dataCol;
 var dataRow;
-var numCol=8;
-var numRow=8;
-var $grid=[];
-var $gridNums=[];
 
 var bgInterval;
 
 var musicState=localStorage.getItem('music');
 var audio=new Audio('music/danger-storm.mp3');
 audio.loop=true;
-
-var greg=true;
 
 /*---------------
 SET HEIGHT
@@ -61,7 +49,7 @@ function setHeight(){
 
 	$('.number').height(blockWidth);
 
-	$('.number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numCol))/2));
+	$('.number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*9))/2));
 }
 
 /*---------------
@@ -76,8 +64,7 @@ function toPlay(){
 		clearInterval(bgInterval);
 		setHeight();
 		setRandNum();
-		resetScore();
-	});
+	})
 }
 
 function toReplay(){
@@ -86,7 +73,6 @@ function toReplay(){
 
 		$('.game-over').hide();
 		$('.overlay').hide();
-		resetScore();
 	});
 }
 
@@ -200,12 +186,9 @@ SET RANDOM NUMBER
 ---------------*/
 
 function setRandNum(){
-	$('.block-group div').addClass('no-clicky');	
-
 	if($('.number-area p').html()==''){
 		myNumber=Math.floor((Math.random()*9)+1);
 		$('.number-area p').html(myNumber);
-		$('.block-group div').removeClass('no-clicky');
 	}else{
 		var i=1;
 		numInterval=setInterval(function(){
@@ -218,7 +201,7 @@ function setRandNum(){
 			}
 			
 			i++;
-		},30);
+		},25);
 	}
 }
 
@@ -233,14 +216,14 @@ function startBlocks(){
 function newBlocks(){
 	$('.highlight').removeClass('highlight');
 
-	for(y=0; y<numRow-1; y++){
-		for(x=0; x<numCol; x++){
-			if($grid[y][x].hasClass('selection')){
-				if(!$grid[y+1][x].hasClass('selection')){
-					$grid[y+1][x].addClass('highlight');
+	for(y=1;y<10;y++){
+		for(x=1;x<10;x++){
+			if($('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
+				if(!$('div[data-row='+(y+1)+'][data-column='+x+']').hasClass('selection')){
+					$('div[data-row='+(y+1)+'][data-column='+x+']').addClass('highlight');
 				}
-			}else if(y==0 && !$grid[y][x].hasClass('selection')){
-				$grid[y][x].addClass('highlight');
+			}else if(y==1 && !$('div[data-row='+y+'][data-column='+x+']').hasClass('selection')){
+				$('div[data-row='+y+'][data-column='+x+']').addClass('highlight');
 			}
 		}
 	}
@@ -254,63 +237,51 @@ INSERT BLOCKS
 
 function insertBlocks(){
 	$('.block-group div').click(function(){
-		var $this=$(this);
-			
-		if($this.hasClass('highlight')){
-			generalInsert($this);
-		}
-	});
-}
+		if($(this).hasClass('highlight')){
+			//var tebavar=false;
+			$(this).removeClass('highlight');
+			$(this).addClass('selection');
+			$(this).html('<p>'+myNumber+'</p>');
 
-function generalInsert(target){
-	target.removeClass('highlight');
-	target.addClass('selection');
-	target.html('<p>'+myNumber+'</p>');
+			$('.block-group div').addClass('no-clicky');	
 
-	dataCol=parseInt(target.attr('data-column'));
-	dataRow=parseInt(target.attr('data-row'));
-
-	shapeL();
-	shapeSquare();
-	shapeLine();
-	shapeT();
-	shapeZ();
-
-	var $winner=$('.winner');
-	$winner.addClass('gagnant');
-
-	if($winner.hasClass('gagnant')){
-		setTimeout(function(){
-			$winner.removeClass('selection');
-			$winner.empty();
-			$winner.removeClass('gagnant');
-			$winner.removeClass('winner');
+			dataCol=parseInt($(this).attr('data-column'));
+			dataRow=parseInt($(this).attr('data-row'));
 
 			newBlocks();
-			setRandNum();
-		},500);
-	}else{
-		newBlocks();
-		setRandNum();
-	}
 
-	$('.score p').html(score);
-	setHighscore();
-}
+			//setTimeout(function(){
+			//while(tebavar==false){
+				if($(this).hasClass('selection')){
+					//tebavar=true;
 
-/*---------------
-HIGHSCORE
----------------*/
+					shapeL();
+					shapeSquare();
+					shapeLine();
+					shapeT();
+					shapeZ();
 
-function setHighscore(){
-	highscore=localStorage.getItem('highscore');
+					$('.winner').addClass('gagnant');
 
-	if(highscore<score || highscore==null){
-		localStorage.setItem('highscore',score);
-		highscore=localStorage.getItem('highscore');
-	}
+					if($('.winner').hasClass('gagnant')){
+						setTimeout(function(){
+							$('.winner').removeClass('selection');
+							$('.winner').empty();
+							$('.winner').removeClass('gagnant');
+							$('.winner').removeClass('winner');
 
-	$('.highscore p').html(highscore);
+							newBlocks();
+							setRandNum();
+						},500);
+					}else{
+						//newBlocks();
+						setRandNum();
+					}
+				}
+			//}
+			//},10);
+		}
+	});
 }
 
 /*---------------
@@ -345,30 +316,17 @@ SHAPES
 ---------------*/
 
 function myShape(x1,y1,x2,y2,x3,y3){
-	check=false;
-	
-	if(0<=(dataCol+x1-1) && 0<=(dataRow+y1-1) && (numCol-1)>=(dataCol+x1-1) && (numRow-1)>=(dataRow+y1-1)){
-		if(0<=(dataCol+x2-1) && 0<=(dataRow+y2-1) && (numCol-1)>=(dataCol+x2-1) && (numRow-1)>=(dataRow+y2-1)){
-			if(0<=(dataCol+x3-1) && 0<=(dataRow+y3-1) && (numCol-1)>=(dataCol+x3-1) && (numRow-1)>=(dataRow+y3-1)){
-				check=true;
-			}
-		}
-	}
-	
-	if(check && $grid[dataRow+y1-1][dataCol+x1-1].hasClass('selection') && $grid[dataRow+y2-1][dataCol+x2-1].hasClass('selection') && $grid[dataRow+y3-1][dataCol+x3-1].hasClass('selection')){
-
-		n1=parseInt($grid[dataRow-1][dataCol-1].html().match(/\d/));
-		n2=parseInt($grid[dataRow+y1-1][dataCol+x1-1].html().match(/\d/));
-		n3=parseInt($grid[dataRow+y2-1][dataCol+x2-1].html().match(/\d/));
-		n4=parseInt($grid[dataRow+y3-1][dataCol+x3-1].html().match(/\d/));
+	if($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').hasClass('selection') && $('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').hasClass('selection') && $('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').hasClass('selection')){
+		n1=parseInt($('div[data-row='+dataRow+'][data-column='+dataCol+'] p').html());
+		n2=parseInt($('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+'] p').html());
+		n3=parseInt($('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+'] p').html());
+		n4=parseInt($('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+'] p').html());
 
 		if(n1+n2+n3+n4==24){
-			$grid[dataRow-1][dataCol-1].addClass('winner');
-			$grid[dataRow+y1-1][dataCol+x1-1].addClass('winner');
-			$grid[dataRow+y2-1][dataCol+x2-1].addClass('winner');
-			$grid[dataRow+y3-1][dataCol+x3-1].addClass('winner');
-
-			score=(score+n1+n2+n3+n4);
+			$('div[data-row='+dataRow+'][data-column='+dataCol+']').addClass('winner');
+			$('div[data-row='+(dataRow+y1)+'][data-column='+(dataCol+x1)+']').addClass('winner');
+			$('div[data-row='+(dataRow+y2)+'][data-column='+(dataCol+x2)+']').addClass('winner');
+			$('div[data-row='+(dataRow+y3)+'][data-column='+(dataCol+x3)+']').addClass('winner');
 		}
 	}
 }
@@ -480,51 +438,4 @@ function shapeZ(){
 	myShape(0,-1,-1,0,-1,1);
 	myShape(1,0,1,-1,0,1);
 	myShape(0,-1,1,-1,1,-2);
-}
-
-/*---------------
-CACHE GRID
----------------*/
-
-function cacheGrid(){
-	for(y=0; y<numRow; y++){
-		$grid[y]=[];	
-		for(x=0; x<numCol; x++){
-			$grid[y][x]=$('div[data-row='+(y+1)+'][data-column='+(x+1)+']');
-		}
-	}
-	
-}
-
-/*---------------
-RESET SCORE
----------------*/
-
-function resetScore(){
-
-
-	score=0;
-	$('.score p').html(score);
-}
-
-/*---------------
-TIME OUT
----------------*/
-
-function timeOut(){
-	for(y=numRow-1;y>=0;y--){
-		greg=true;
-		for(x=numCol-1;x>=0;x--){
-			if(!$grid[y][x].hasClass('selection')){
-				generalInsert($grid[y][x]);
-
-				greg=false;
-				break;
-			}
-		}
-
-		if(!greg){
-			break;
-		}
-	}
 }
