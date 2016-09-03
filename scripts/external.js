@@ -40,16 +40,17 @@ var dataRow;
 var numCol=8;
 var numRow=8;
 var $grid=[];
-var $gridNums=[];
+var warnRow;
+var warnCol;
 
 var bgInterval;
 var toInterval;
+var warnTimeout;
+var warnClassTimeout;
 
 var musicState=localStorage.getItem('music');
 var audio=new Audio('music/danger-storm.mp3');
 audio.loop=true;
-
-var greg=true;
 
 /*---------------
 SET HEIGHT
@@ -76,10 +77,10 @@ function toPlay(){
 		$('.play').show();
 
 		clearInterval(bgInterval);
-		timeOut();
 		setHeight();
 		setRandNum();
 		resetScore();
+		timeOut();
 	});
 }
 
@@ -104,6 +105,10 @@ function toMain(){
 
 		replay();
 		bgAnimate();
+		
+		clearTimeout(warnTimeout);
+		clearTimeout(warnClassTimeout);
+		$grid[warnRow][warnCol].removeClass('warning');
 	})
 }
 
@@ -111,8 +116,9 @@ function toPopUp(){
 	$('.back').click(function(){
 		$('.game-over').show();
 		$('.overlay').show();
-
-		clearInterval(toInterval);
+		clearTimeout(warnTimeout);
+		clearTimeout(warnClassTimeout);
+		$grid[warnRow][warnCol].removeClass('warning');
 	});
 }
 
@@ -216,24 +222,18 @@ SET RANDOM NUMBER
 function setRandNum(){
 	$('.block-group div').addClass('no-clicky');	
 
-	if($('.number-area p').html()==''){
+	var i=1;
+	numInterval=setInterval(function(){
 		myNumber=Math.floor((Math.random()*9)+1);
 		$('.number-area p').html(myNumber);
-		$('.block-group div').removeClass('no-clicky');
-	}else{
-		var i=1;
-		numInterval=setInterval(function(){
-			myNumber=Math.floor((Math.random()*9)+1);
-			$('.number-area p').html(myNumber);
-			
-			if(i==20){
-				clearInterval(numInterval);
-				$('.block-group div').removeClass('no-clicky');	
-			}
-			
-			i++;
-		},30);
-	}
+		
+		if(i==20){
+			clearInterval(numInterval);
+			$('.block-group div').removeClass('no-clicky');	
+		}
+		
+		i++;
+	},30);
 }
 
 /*---------------
@@ -271,8 +271,9 @@ function insertBlocks(){
 		var $this=$(this);
 			
 		if($this.hasClass('highlight')){
-			clearInterval(toInterval);
-			timeOut();
+			clearTimeout(warnTimeout);
+			clearTimeout(warnClassTimeout);
+			$grid[warnRow][warnCol].removeClass('warning');
 
 			generalInsert($this);
 		}
@@ -281,6 +282,7 @@ function insertBlocks(){
 
 function generalInsert(target){
 	target.removeClass('highlight');
+	target.removeClass('warning');
 	target.addClass('selection');
 	target.html('<p>'+myNumber+'</p>');
 
@@ -302,17 +304,23 @@ function generalInsert(target){
 			$winner.empty();
 			$winner.removeClass('gagnant');
 			$winner.removeClass('winner');
-
 			newBlocks();
 			setRandNum();
+			
+			$('.score p').html(score);
+			setHighscore();
+			timeOut();
 		},500);
 	}else{
 		newBlocks();
 		setRandNum();
+		
+		$('.score p').html(score);
+		setHighscore();
+		timeOut();
 	}
 
-	$('.score p').html(score);
-	setHighscore();
+
 }
 
 /*---------------
@@ -340,6 +348,9 @@ function gameOver(){
 
 		$('.game-over').show();
 		$('.overlay').show();
+		
+		clearTimeout(warnTimeout);
+		clearTimeout(warnClassTimeout);
 	}
 }
 
@@ -527,21 +538,30 @@ TIME OUT
 ---------------*/
 
 function timeOut(){
-	toInterval=setInterval(function(){
-		for(y=numRow-1;y>=0;y--){
-			greg=true;
-			for(x=numCol-1;x>=0;x--){
-				if(!$grid[y][x].hasClass('selection')){
-					generalInsert($grid[y][x]);
-
-					greg=false;
-					break;
-				}
-			}
-
-			if(!greg){
+	var greg=true;
+	
+	for(y=numRow-1;y>=0;y--){
+		for(x=numCol-1;x>=0;x--){
+			if(!$grid[y][x].hasClass('selection')){
+				
+				warnRow=y;
+				warnCol=x;
+				
+				warnClassTimeout=setTimeout(function(){
+							$grid[warnRow][warnCol].addClass('warning');
+						},5000);
+						
+				warnTimeout=setTimeout(function(){
+							generalInsert($grid[warnRow][warnCol]);
+						},10000);
+					
+				greg=false;
 				break;
 			}
 		}
-	},10000);
+
+		if(!greg){
+			break;
+		}
+	}
 }
