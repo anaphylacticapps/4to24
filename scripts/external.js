@@ -42,6 +42,7 @@ var $grid=[];
 var $gridNums=[];
 
 var bgInterval;
+var toInterval;
 
 var musicState=localStorage.getItem('music');
 var audio=new Audio('music/danger-storm.mp3');
@@ -57,7 +58,7 @@ function setHeight(){
 	blockWidth=$('.block-group div').width();
 
 	$('.block-group').height(blockWidth);
-	$('.block-area').height(blockWidth*8);
+	$('.block-area').height(blockWidth*numCol);
 
 	$('.number').height(blockWidth);
 
@@ -74,6 +75,7 @@ function toPlay(){
 		$('.play').show();
 
 		clearInterval(bgInterval);
+		timeOut();
 		setHeight();
 		setRandNum();
 		resetScore();
@@ -82,25 +84,24 @@ function toPlay(){
 
 function toReplay(){
 	$('.replay-b').click(function(){
-		replay();
-
 		$('.game-over').hide();
 		$('.overlay').hide();
+
+		replay();
 		resetScore();
+		timeOut();
 	});
 }
 
 function toMain(){
 	$('.main-b').click(function(){
-		replay();
-
 		$('.play').hide();
 		$('.game-over').hide();
 		$('.overlay').hide();
 		$('.info').hide();
-
 		$('.main').show();
-		
+
+		replay();
 		bgAnimate();
 	})
 }
@@ -109,6 +110,8 @@ function toPopUp(){
 	$('.back').click(function(){
 		$('.game-over').show();
 		$('.overlay').show();
+
+		clearInterval(toInterval);
 	});
 }
 
@@ -136,10 +139,12 @@ function hideOverlay(){
 	$('.overlay').click(function(){
 		$('.pp-text').hide();
 		$('.tou-text').hide();
-
 		$('.game-over').hide();
-
 		$('.overlay').hide();
+
+		if($('.play').css('display')=='block'){
+			timeOut();
+		}
 	});
 }
 
@@ -512,19 +517,21 @@ TIME OUT
 ---------------*/
 
 function timeOut(){
-	for(y=numRow-1;y>=0;y--){
-		greg=true;
-		for(x=numCol-1;x>=0;x--){
-			if(!$grid[y][x].hasClass('selection')){
-				generalInsert($grid[y][x]);
+	toInterval=setInterval(function(){
+		for(y=numRow-1;y>=0;y--){
+			greg=true;
+			for(x=numCol-1;x>=0;x--){
+				if(!$grid[y][x].hasClass('selection')){
+					generalInsert($grid[y][x]);
 
-				greg=false;
+					greg=false;
+					break;
+				}
+			}
+
+			if(!greg){
 				break;
 			}
 		}
-
-		if(!greg){
-			break;
-		}
-	}
+	},10000);
 }

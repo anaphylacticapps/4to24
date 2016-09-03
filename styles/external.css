@@ -276,7 +276,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	bottom:15px;
 	left:50%;
 	-webkit-transform:translateX(-50%);
-	height:25px;
+	height:35px;
 	animation:borderSwitch1 0.5s infinite;
 }
 
@@ -296,7 +296,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	-webkit-transform:translateX(-50%);
 	padding:10px;
-	height:25px;
+	height:35px;
 	bottom:15px;
 	animation:borderSwitch2 0.5s infinite;
 }
@@ -429,11 +429,12 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .play{
 	position:absolute;
-	top:12.5%;
+	top:10%;
 	left:0;
 	width:100%;
-	height:88%;
+	height:90%;
 	background:#222;
+	display:none;
 }
 
 .block-area{
