@@ -8,6 +8,8 @@
 	box-sizing:border-box;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	-webkit-tap-highlight-color:transparent;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	-webkit-tap-highlight-color:transparent;
 	-webkit-user-select:none;
 }
 
@@ -50,6 +52,7 @@ header{
 	top:2%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	transform:translateX(-50%);
 	border:3px solid #0ff;
 	box-shadow:0px 0px 15px 0px #0ff;
 }
@@ -67,6 +70,7 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	color:#0ff;
 	font-size:1.25em;
 	text-shadow:0px 0px 10px #0ff;
@@ -78,6 +82,7 @@ header{
 	height:100%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	transform:translateX(-50%);
 }
 
 .score p{
@@ -86,6 +91,7 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 }
 
 .music{
@@ -117,6 +123,7 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	border:3px solid #0ff;
 	box-shadow:0px 0px 15px 0px #0ff;
 }
@@ -134,15 +141,17 @@ header{
 }
 
 .main-bg p:first-child{
-	top:30%;
-	left:20%;
+	top:20%;
+	left:8%;
 	animation:neonspark 2.75s infinite;
+	-webkit-animation:neonspark 2.75s infinite;
 }
 
 .info-bg p:first-child{
 	top:20%;
 	left:20%;
 	animation:neonspark 2.75s infinite;
+	-webkit-animation:neonspark 2.75s infinite;
 }
 
 
@@ -152,25 +161,27 @@ header{
 }
 
 .main-bg p:nth-child(3), .info-bg p:nth-child(3){
-	top:10%;
-	left:10%;
+	top:5%;
+	left:18%;
 }
 
 .main-bg p:nth-child(4), .info-bg p:nth-child(4){
 	top:40%;
 	left:90%;
 	animation:neonspark 3s infinite;
+	-webkit-animation:neonspark 3s infinite;
 }
 
 .main-bg p:nth-child(5), .info-bg p:nth-child(5){
 	top:90%;
 	left:20%;
 	animation:neonspark 3.25s infinite;
+	-webkit-animation:neonspark 3.25s infinite;
 }
 
 .main-bg p:nth-child(6){
-	top:30%;
-	left:80%;
+	top:15%;
+	left:90%;
 }
 
 .info-bg p:nth-child(6){
@@ -184,8 +195,8 @@ header{
 }
 
 .main-bg p:nth-child(8), .info-bg p:nth-child(8){
-	top:60%;
-	left:5%;
+	top:75%;
+	left:2.5%;
 }
 
 .main-bg p:last-child, .info-bg p:last-child{
@@ -205,16 +216,19 @@ h1,h2{
 
 h1 span:first-child, .game-over h2 span:first-child{
 	animation:neonspark 1.5s infinite;
+	-webkit-animation:neonspark 1.5s infinite;
 }
 
 h1 span:last-child, .game-over h2 span:last-child{
 	animation:neonspark 2.5s infinite;
+	-webkit-animation:neonspark 2.5s infinite;
 }
 
 .main-area button, .info-area button, .game-over button{
 	position:absolute;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	width:225px;
 	padding:10px;
 	font-family:'Bungee Hairline';
@@ -288,8 +302,10 @@ h1 span:last-child, .game-over h2 span:last-child{
 	top:50%;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	height:225px;
 	animation:borderSwitch1 0.5s infinite;
+	-webkit-animation:borderSwitch1 0.5s infinite;
 	z-index:1000;
 }
 
@@ -299,6 +315,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 }
 
 .highscore-border{
@@ -309,9 +326,11 @@ h1 span:last-child, .game-over h2 span:last-child{
 	top:50%;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	padding:10px;
 	height:225px;
 	animation:borderSwitch2 0.5s infinite;
+	-webkit-animation:borderSwitch2 0.5s infinite;
 	z-index:1000;
 }
 
@@ -333,6 +352,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 .flash-1{
 	margin-top:-3px;
 	animation:flash1 2s infinite;
+	-webkit-animation:flash1 2s infinite;
 }
 
 .flash-3{
@@ -340,6 +360,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:85%;
 	margin-bottom:-3px;
 	animation:flash1 2s infinite reverse;
+	-webkit-animation:flash1 2s infinite reverse;
 }
 
 .flash-2, .flash-4{
@@ -357,11 +378,13 @@ h1 span:last-child, .game-over h2 span:last-child{
 	margin-right:-3px;
 	left:100%;
 	animation:flash2 2s infinite;
+	-webkit-animation:flash2 2s infinite;
 }
 
 .flash-4{
 	margin-left:-3px;
 	animation:flash2 2s infinite reverse;
+	-webkit-animation:flash2 2s infinite reverse;
 }
 
 /**********
@@ -415,7 +438,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
 }
 
-/*@keyframes winner-gagnant{
+@keyframes winner-gagnant{
 	0%{background:rgba(204,35,20,0.75);border:1px solid rgba(204,35,20,0.75);box-shadow:0px 0px 10px 0px rgba(204,35,20,0.75) inset;}
 	40%{background:rgba(204,35,20,0.75);border:1px solid rgba(204,35,20,0.75);box-shadow:0px 0px 10px 0px rgba(204,35,20,0.75) inset;}
 	45%{background:none;}
@@ -424,9 +447,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	60%{background:rgba(204,35,20,0.75);border:1px solid rgba(204,35,20,0.75);box-shadow:0px 0px 10px 0px rgba(204,35,20,0.75) inset;}
 	95%{background:rgba(204,35,20,0.75);border:1px solid rgba(204,35,20,0.75);box-shadow:0px 0px 10px 0px rgba(204,35,20,0.75) inset;}
 	100%{background:none;}
-}*/
+}
 
-@keyframes winner-gagnant{
+/*@keyframes winner-gagnant{
 	0%{background:none;}
 	40%{background:none;}
 	45%{background:rgba(0,255,255,0.75);}
@@ -435,6 +458,29 @@ h1 span:last-child, .game-over h2 span:last-child{
 	60%{background:none;}
 	95%{background:none;}
 	100%{background:rgba(0,255,255,0.75);}
+}*/
+
+@keyframes warning{
+	0%{background:rgba(255,255,0,0.75);}
+	10%{background:none;}
+	20%{background:rgba(255,255,0,0.75);}
+	30%{background:none;}
+	40%{background:rgba(255,255,0,0.75);}
+	50%{background:none;}
+	55%{background:rgba(255,255,0,0.75);}
+	60%{background:none;}
+	65%{background:rgba(255,255,0,0.75);}
+	70%{background:none;}
+	75%{background:rgba(255,255,0,0.75);}
+	80%{background:none;}
+	85%{background:rgba(255,255,0,0.75);}
+	90%{background:none;}
+	92%{background:rgba(255,255,0,0.75);}
+	94%{background:none;}
+	96%{background:rgba(255,255,0,0.75);}
+	98%{background:none;}
+	99%{background:rgba(255,255,0,0.75);}
+	100%{background:none;}
 }
 
 /**********
@@ -458,6 +504,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	width:95%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	transform:translateX(-50%);
 	border:3px solid #0ff;
 	float:left;
 	box-shadow:0px 0px 15px 0px #0ff;
@@ -484,6 +531,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	width:95%;
 	left:50%;
 	transform:translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
 }
 
 .number-area{
@@ -495,6 +543,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	top:0;
 	left:50%;
 	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
 }
 
 .number p, .block-group div p{
@@ -502,6 +551,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	font-size:1.25em;
 	color:#262626;
 }
@@ -516,6 +566,12 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .gagnant{
 	animation:winner-gagnant 0.5s;
+	-webkit-animation:winner-gagnant 0.5s;
+}
+
+.warning{
+	animation:warning 5s;
+	-webkit-animation:warning 5s;
 }
 
 /**********
@@ -530,6 +586,7 @@ h2{
 	font-size:1em;
 	position:absolute;
 	-webkit-transform:translateX(-50%);
+	transform:translateX(-50%);
 	left:50%;
 	top:50%;
 	text-shadow:0px 0px 10px #0ff;
@@ -537,14 +594,17 @@ h2{
 
 .loading-area p span:first-child{
 	animation:dot1 1.35s infinite;
+	-webkit-animation:dot1 1.35s infinite;
 }
 
 .loading-area p span:nth-child(2){
 	animation:dot2 1.35s infinite;
+	-webkit-animation:dot2 1.35s infinite;
 }
 
 .loading-area p span:last-child{
 	animation:dot3 1.35s infinite;
+	-webkit-animation:dot3 1.35s infinite;
 }
 
 /**********
@@ -577,6 +637,7 @@ h2{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
 	background:#222;
 	overflow-y:scroll;
 	display:none;
