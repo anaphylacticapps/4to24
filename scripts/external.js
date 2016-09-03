@@ -271,6 +271,9 @@ function insertBlocks(){
 		var $this=$(this);
 			
 		if($this.hasClass('highlight')){
+			clearInterval(toInterval);
+			timeOut();
+
 			generalInsert($this);
 		}
 	});
@@ -515,8 +518,6 @@ RESET SCORE
 ---------------*/
 
 function resetScore(){
-
-
 	score=0;
 	$('.score p').html(score);
 }
