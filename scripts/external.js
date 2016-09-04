@@ -45,6 +45,7 @@ var warnCol;
 
 var bgInterval;
 var toInterval;
+var numInterval=null;
 var warnTimeout;
 var warnClassTimeout;
 
@@ -220,20 +221,23 @@ SET RANDOM NUMBER
 ---------------*/
 
 function setRandNum(){
-	$('.block-group div').addClass('no-clicky');	
-
-	var i=1;
-	numInterval=setInterval(function(){
-		myNumber=Math.floor((Math.random()*9)+1);
-		$('.number-area p').html(myNumber);
-		
-		if(i==20){
-			clearInterval(numInterval);
-			$('.block-group div').removeClass('no-clicky');	
-		}
-		
-		i++;
-	},30);
+	$('.block-group div').addClass('no-clicky');
+	
+	if (numInterval==null){
+		var i=1;
+		numInterval=setInterval(function(){
+			myNumber=Math.floor((Math.random()*9)+1);
+			$('.number-area p').html(myNumber);
+			
+			if(i==20){
+				clearInterval(numInterval);
+				numInterval=null;
+				$('.block-group div').removeClass('no-clicky');	
+			}
+			
+			i++;
+		},30);
+	}
 }
 
 /*---------------
@@ -281,6 +285,7 @@ function insertBlocks(){
 }
 
 function generalInsert(target){
+	$('.block-group div').addClass('no-clicky');
 	target.removeClass('highlight');
 	target.removeClass('warning');
 	target.addClass('selection');
