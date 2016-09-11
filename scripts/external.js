@@ -10,6 +10,7 @@ $(document).ready(function(){
 	toPopUp();
 	toReplay();
 	toHighscore();
+	toTut();
 	hideOverlay();
 
 	startBlocks();
@@ -37,8 +38,8 @@ var highscore;
 
 var dataCol;
 var dataRow;
-var numCol=8;
-var numRow=8;
+var numCol;
+var numRow;
 var $grid=[];
 var warnRow;
 var warnCol;
@@ -58,14 +59,25 @@ SET HEIGHT
 ---------------*/
 
 function setHeight(){
-	blockWidth=$('.block-group div').width();
+	if($('.play').css('display')=='block'){
+		blockWidth=$('.block-group div').width();
+		numCol=8;
+		numRow=8;
+	}
+
+	if($('.tutorial').css('display')=='block'){
+		blockWidth=$('.tutorial .block-group div').width();
+		numCol=2;
+		numRow=3;
+	}
 
 	$('.block-group').height(blockWidth);
-	$('.block-area').height(blockWidth*numCol);
+
+	$('.block-area').height(blockWidth*numRow);
 
 	$('.number').height(blockWidth);
 
-	$('.number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numCol))/2));
+	$('.number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numRow))/2));
 }
 
 /*---------------
@@ -76,6 +88,9 @@ function toPlay(){
 	$('.play-b').click(function(){
 		$('.main').hide();
 		$('.play').show();
+		$('.tutorial').hide();
+		$('.game-over').hide();
+		$('.overlay').hide();
 
 		clearInterval(bgInterval);
 		setHeight();
@@ -96,6 +111,15 @@ function toReplay(){
 	});
 }
 
+function toTut(){
+	$('.tut-b').click(function(){
+		$('.main').hide();
+		$('.tutorial').show();
+
+		setHeight();
+	});
+}
+
 function toMain(){
 	$('.main-b').click(function(){
 		$('.play').hide();
@@ -103,6 +127,7 @@ function toMain(){
 		$('.overlay').hide();
 		$('.info').hide();
 		$('.main').show();
+		$('.tutorial').hide();
 
 		replay();
 		bgAnimate();
@@ -117,6 +142,22 @@ function toPopUp(){
 	$('.back').click(function(){
 		$('.game-over').show();
 		$('.overlay').show();
+
+		if($('.play').css('display')=='block'){
+			$('.replay-b').show();
+			$('.game-over .play-b').hide();
+
+			$('.game-over h2').html('P<span>A</span>U<span>S</span>E');
+			gameOver();
+		}
+
+		if($('.tutorial').css('display')=='block'){
+			$('.replay-b').hide();
+			$('.game-over .play-b').show();
+
+			$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
+		}
+
 		clearTimeout(warnTimeout);
 		clearTimeout(warnClassTimeout);
 		$grid[warnRow][warnCol].removeClass('warning');
@@ -366,7 +407,6 @@ REPLAY
 function replay(){
 	$('.block-group div').removeClass('highlight');
 	$('.block-group div').removeClass('selection');
-	$('.game-over h2').html('P<span>A</span>U<span>S</span>E');
 	$('.block-group div p').empty();
 
 	startBlocks();
