@@ -13,15 +13,12 @@ $(document).ready(function(){
 	toTut();
 	hideOverlay();
 
-	startBlocks();
 	insertBlocks();
 
 	toggleMusic();
 	setMusic();
 
 	bgAnimate();
-	
-	cacheGrid();
 
 	$('.loading').hide();
 });
@@ -50,6 +47,8 @@ var numInterval=null;
 var warnTimeout;
 var warnClassTimeout;
 
+var tutStep=0;
+
 var musicState=localStorage.getItem('music');
 var audio=new Audio('music/danger-storm.mp3');
 audio.loop=true;
@@ -77,7 +76,7 @@ function setHeight(){
 
 	$('.number').height(blockWidth);
 
-	$('.number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numRow))/2));
+	$('.play .number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numRow))/2));
 }
 
 /*---------------
@@ -91,12 +90,15 @@ function toPlay(){
 		$('.tutorial').hide();
 		$('.game-over').hide();
 		$('.overlay').hide();
+		$('.tutorial-overlay').hide();
 
 		clearInterval(bgInterval);
 		setHeight();
+		cacheGrid('.play');
 		setRandNum();
 		resetScore();
 		timeOut();
+		startBlocks();
 	});
 }
 
@@ -115,8 +117,14 @@ function toTut(){
 	$('.tut-b').click(function(){
 		$('.main').hide();
 		$('.tutorial').show();
+		tutStep=0;
 
 		setHeight();
+		cacheGrid('.tutorial');
+		resetScore();
+		setRandNum();
+		instructions();
+		startBlocks();
 	});
 }
 
@@ -128,13 +136,17 @@ function toMain(){
 		$('.info').hide();
 		$('.main').show();
 		$('.tutorial').hide();
+		$('.overlay').hide();
+		$('.tutorial-overlay').hide();
 
 		replay();
 		bgAnimate();
 		
-		clearTimeout(warnTimeout);
-		clearTimeout(warnClassTimeout);
-		$grid[warnRow][warnCol].removeClass('warning');
+		if($('.play').css('display')=='block'){
+			clearTimeout(warnTimeout);
+			clearTimeout(warnClassTimeout);
+			$grid[warnRow][warnCol].removeClass('warning');
+		}
 	})
 }
 
@@ -149,6 +161,10 @@ function toPopUp(){
 
 			$('.game-over h2').html('P<span>A</span>U<span>S</span>E');
 			gameOver();
+
+			clearTimeout(warnTimeout);
+			clearTimeout(warnClassTimeout);
+			$grid[warnRow][warnCol].removeClass('warning');
 		}
 
 		if($('.tutorial').css('display')=='block'){
@@ -157,10 +173,6 @@ function toPopUp(){
 
 			$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
 		}
-
-		clearTimeout(warnTimeout);
-		clearTimeout(warnClassTimeout);
-		$grid[warnRow][warnCol].removeClass('warning');
 	});
 }
 
@@ -268,12 +280,32 @@ function setRandNum(){
 		var i=1;
 		numInterval=setInterval(function(){
 			myNumber=Math.floor((Math.random()*9)+1);
+
 			$('.number-area p').html(myNumber);
 			
 			if(i==20){
 				clearInterval(numInterval);
 				numInterval=null;
-				$('.block-group div').removeClass('no-clicky');	
+
+				if($('.tutorial').css('display')=='block'){
+					if(tutStep==0){
+						myNumber=4;
+					}else if(tutStep==1){
+						myNumber=8;
+					}else if(tutStep==2){
+						myNumber=2;
+					}else if(tutStep==3){
+						myNumber=7;
+					}else if(tutStep==4){
+						myNumber=5;
+					}
+
+					$('.number-area p').html(myNumber);
+				}
+
+				if(tutStep!=2){
+					$('.block-group div').removeClass('no-clicky');
+				}
 			}
 			
 			i++;
@@ -316,9 +348,11 @@ function insertBlocks(){
 		var $this=$(this);
 			
 		if($this.hasClass('highlight')){
-			clearTimeout(warnTimeout);
-			clearTimeout(warnClassTimeout);
-			$grid[warnRow][warnCol].removeClass('warning');
+			if($('.play').css('display')=='block'){
+				clearTimeout(warnTimeout);
+				clearTimeout(warnClassTimeout);
+				$grid[warnRow][warnCol].removeClass('warning');
+			}
 
 			generalInsert($this);
 		}
@@ -334,6 +368,11 @@ function generalInsert(target){
 
 	dataCol=parseInt(target.attr('data-column'));
 	dataRow=parseInt(target.attr('data-row'));
+
+	if($('.tutorial').css('display')=='block'){
+		tutStep++;
+		instructions();
+	}
 
 	shapeL();
 	shapeSquare();
@@ -365,8 +404,38 @@ function generalInsert(target){
 		setHighscore();
 		timeOut();
 	}
+}
 
+/*---------------
+TUTORIAL INSTRUCTIONS
+---------------*/
 
+function instructions(){
+	if(tutStep==0){
+		$('.instructions p').html('Touch a highlighted block to place a piece down.');
+	}else if(tutStep==1){
+		$('.instructions p').html('You need exactly four adjacent blocks that add up to 24.');
+	}else if(tutStep==2){
+		$('.instructions p').html('If you wait 20 seconds, the block will be automatically placed down.');
+
+		$grid[2][1].addClass('warning');
+							
+		warnTimeout=setTimeout(function(){
+			generalInsert($grid[2][1]);
+		},5000);
+	}else if(tutStep==3){
+		$('.instructions p').html('You lose when you run out of empty spaces.');
+	}else if(tutStep==4){
+		$('.instructions p').html('Good Luck!');
+	}else if(tutStep==5){
+		setTimeout(function(){
+			$('.tutorial-overlay').show();
+			$('.game-over').show();
+			$('.replay-b').hide();
+			$('.game-over .play-b').show();
+			$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
+		},500);
+	}
 }
 
 /*---------------
@@ -397,6 +466,9 @@ function gameOver(){
 		
 		clearTimeout(warnTimeout);
 		clearTimeout(warnClassTimeout);
+
+		$('.replay-b').show();
+		$('.game-over .play-b').hide();
 	}
 }
 
@@ -559,11 +631,11 @@ function shapeZ(){
 CACHE GRID
 ---------------*/
 
-function cacheGrid(){
+function cacheGrid(page){
 	for(y=0; y<numRow; y++){
 		$grid[y]=[];	
 		for(x=0; x<numCol; x++){
-			$grid[y][x]=$('div[data-row='+(y+1)+'][data-column='+(x+1)+']');
+			$grid[y][x]=$(page+' div[data-row='+(y+1)+'][data-column='+(x+1)+']');
 		}
 	}
 	
@@ -583,30 +655,32 @@ TIME OUT
 ---------------*/
 
 function timeOut(){
-	var greg=true;
-	
-	for(y=numRow-1;y>=0;y--){
-		for(x=numCol-1;x>=0;x--){
-			if(!$grid[y][x].hasClass('selection')){
-				
-				warnRow=y;
-				warnCol=x;
-				
-				warnClassTimeout=setTimeout(function(){
-							$grid[warnRow][warnCol].addClass('warning');
-						},5000);
-						
-				warnTimeout=setTimeout(function(){
-							generalInsert($grid[warnRow][warnCol]);
-						},10000);
+	if($('.play').css('display')=='block'){
+		var greg=true;
+		
+		for(y=numRow-1;y>=0;y--){
+			for(x=numCol-1;x>=0;x--){
+				if(!$grid[y][x].hasClass('selection')){
 					
-				greg=false;
+					warnRow=y;
+					warnCol=x;
+					
+					warnClassTimeout=setTimeout(function(){
+								$grid[warnRow][warnCol].addClass('warning');
+							},5000);
+							
+					warnTimeout=setTimeout(function(){
+								generalInsert($grid[warnRow][warnCol]);
+							},10000);
+						
+					greg=false;
+					break;
+				}
+			}
+
+			if(!greg){
 				break;
 			}
-		}
-
-		if(!greg){
-			break;
 		}
 	}
 }
