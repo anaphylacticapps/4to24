@@ -61,7 +61,7 @@ function setHeight(){
 	if($('.play').css('display')=='block'){
 		blockWidth=$('.block-group div').width();
 		numCol=8;
-		numRow=8;
+		numRow=5;
 	}
 
 	if($('.tutorial').css('display')=='block'){
@@ -171,7 +171,7 @@ function toPopUp(){
 			$('.replay-b').hide();
 			$('.game-over .play-b').show();
 
-			$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
+			$('.game-over h2').html('4 <span>t</span>o <span>4</span>');
 		}
 	});
 }
@@ -279,7 +279,7 @@ function setRandNum(){
 	if (numInterval==null){
 		var i=1;
 		numInterval=setInterval(function(){
-			myNumber=Math.floor((Math.random()*9)+1);
+			myNumber=Math.floor((Math.random()*9)-4);
 
 			$('.number-area p').html(myNumber);
 			
@@ -289,15 +289,15 @@ function setRandNum(){
 
 				if($('.tutorial').css('display')=='block'){
 					if(tutStep==0){
-						myNumber=4;
-					}else if(tutStep==1){
-						myNumber=8;
-					}else if(tutStep==2){
 						myNumber=2;
+					}else if(tutStep==1){
+						myNumber=3;
+					}else if(tutStep==2){
+						myNumber=(-1);
 					}else if(tutStep==3){
-						myNumber=7;
+						myNumber=(-2);
 					}else if(tutStep==4){
-						myNumber=5;
+						myNumber=1;
 					}
 
 					$('.number-area p').html(myNumber);
@@ -412,28 +412,30 @@ TUTORIAL INSTRUCTIONS
 
 function instructions(){
 	if(tutStep==0){
-		$('.instructions p').html('Touch a highlighted block to place a piece down.');
+		$('.instructions p').html('Touch a shaded block to place a piece down.');
 	}else if(tutStep==1){
-		$('.instructions p').html('You need exactly four adjacent blocks that add up to 24.');
+		$('.instructions p').html('You need exactly four adjacent blocks that add up to 4.');
 	}else if(tutStep==2){
 		$('.instructions p').html('If you wait 20 seconds, the block will be automatically placed down.');
 
-		$grid[2][1].addClass('warning');
+		var tutTimeout=setTimeout(function(){
+			$grid[2][1].addClass('warning');
+		},4000);
 							
 		warnTimeout=setTimeout(function(){
 			generalInsert($grid[2][1]);
-		},5000);
+		},9000);
 	}else if(tutStep==3){
 		$('.instructions p').html('You lose when you run out of empty spaces.');
 	}else if(tutStep==4){
-		$('.instructions p').html('Good Luck!');
+		$('.instructions p').html('Place your last piece down and good luck!');
 	}else if(tutStep==5){
 		setTimeout(function(){
 			$('.tutorial-overlay').show();
 			$('.game-over').show();
 			$('.replay-b').hide();
 			$('.game-over .play-b').show();
-			$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
+			$('.game-over h2').html('4 <span>t</span>o <span>4</span>');
 		},500);
 	}
 }
@@ -502,12 +504,12 @@ function myShape(x1,y1,x2,y2,x3,y3){
 	
 	if(check && $grid[dataRow+y1-1][dataCol+x1-1].hasClass('selection') && $grid[dataRow+y2-1][dataCol+x2-1].hasClass('selection') && $grid[dataRow+y3-1][dataCol+x3-1].hasClass('selection')){
 
-		n1=parseInt($grid[dataRow-1][dataCol-1].html().match(/\d/));
-		n2=parseInt($grid[dataRow+y1-1][dataCol+x1-1].html().match(/\d/));
-		n3=parseInt($grid[dataRow+y2-1][dataCol+x2-1].html().match(/\d/));
-		n4=parseInt($grid[dataRow+y3-1][dataCol+x3-1].html().match(/\d/));
+		n1=parseInt($grid[dataRow-1][dataCol-1].html().match(/-?\d/));
+		n2=parseInt($grid[dataRow+y1-1][dataCol+x1-1].html().match(/-?\d/));
+		n3=parseInt($grid[dataRow+y2-1][dataCol+x2-1].html().match(/-?\d/));
+		n4=parseInt($grid[dataRow+y3-1][dataCol+x3-1].html().match(/-?\d/));
 
-		if(n1+n2+n3+n4==24){
+		if(n1+n2+n3+n4==4){
 			$grid[dataRow-1][dataCol-1].addClass('winner');
 			$grid[dataRow+y1-1][dataCol+x1-1].addClass('winner');
 			$grid[dataRow+y2-1][dataCol+x2-1].addClass('winner');
@@ -667,11 +669,11 @@ function timeOut(){
 					
 					warnClassTimeout=setTimeout(function(){
 								$grid[warnRow][warnCol].addClass('warning');
-							},5000);
+							},15000);
 							
 					warnTimeout=setTimeout(function(){
 								generalInsert($grid[warnRow][warnCol]);
-							},10000);
+							},20000);
 						
 					greg=false;
 					break;
