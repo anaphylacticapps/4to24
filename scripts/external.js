@@ -20,6 +20,12 @@ $(document).ready(function(){
 
 	bgAnimate();
 
+	//FastClick.attach(document.body);
+
+	//advertisement();
+	//bannerAdShow();
+	//interstitialAdPrep();
+
 	$('.loading').hide();
 });
 
@@ -40,6 +46,7 @@ var numRow;
 var $grid=[];
 var warnRow;
 var warnCol;
+var numGoal=10;
 
 var bgInterval;
 var toInterval;
@@ -48,9 +55,13 @@ var warnTimeout;
 var warnClassTimeout;
 
 var tutStep=0;
+var backCount=0;
 
 var musicState=localStorage.getItem('music');
 var audio=new Audio('music/danger-storm.mp3');
+var tapAudio=new Audio('');
+var winAudio=new Audio('');
+var loseAudio=new Audio('');
 audio.loop=true;
 
 /*---------------
@@ -60,8 +71,8 @@ SET HEIGHT
 function setHeight(){
 	if($('.play').css('display')=='block'){
 		blockWidth=$('.block-group div').width();
-		numCol=8;
-		numRow=5;
+		numCol=4;
+		numRow=4;
 	}
 
 	if($('.tutorial').css('display')=='block'){
@@ -136,7 +147,6 @@ function toMain(){
 		$('.info').hide();
 		$('.main').show();
 		$('.tutorial').hide();
-		$('.overlay').hide();
 		$('.tutorial-overlay').hide();
 
 		replay();
@@ -156,30 +166,38 @@ function toPopUp(){
 		$('.overlay').show();
 
 		if($('.play').css('display')=='block'){
-			$('.replay-b').show();
-			$('.game-over .play-b').hide();
-
-			$('.game-over h2').html('P<span>A</span>U<span>S</span>E');
-			gameOver();
-
-			clearTimeout(warnTimeout);
-			clearTimeout(warnClassTimeout);
-			$grid[warnRow][warnCol].removeClass('warning');
+			playPopUp();
 		}
 
 		if($('.tutorial').css('display')=='block'){
-			$('.replay-b').hide();
-			$('.game-over .play-b').show();
-
-			$('.game-over h2').html('4 <span>t</span>o <span>4</span>');
+			tutPopUp();
 		}
 	});
+}
+
+function playPopUp(){
+	$('.replay-b').show();
+	$('.game-over .play-b').hide();
+
+	$('.game-over h2').html('P<span>A</span>U<span>S</span>E');
+	gameOver();
+
+	clearTimeout(warnTimeout);
+	clearTimeout(warnClassTimeout);
+	$grid[warnRow][warnCol].removeClass('warning');
+
+	//interstitialAdShow();
+}
+
+function tutPopUp(){
+	$('.replay-b').hide();
+	$('.game-over .play-b').show();
+	$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
 }
 
 function toInfo(){
 	$('.fa-info').click(function(){
 		$('.main').hide();
-		$('.main-bg').show();
 		$('.info').show();
 	});
 }
@@ -279,7 +297,7 @@ function setRandNum(){
 	if (numInterval==null){
 		var i=1;
 		numInterval=setInterval(function(){
-			myNumber=Math.floor((Math.random()*9)-4);
+			myNumber=Math.floor((Math.random()*6)-0);
 
 			$('.number-area p').html(myNumber);
 			
@@ -289,15 +307,15 @@ function setRandNum(){
 
 				if($('.tutorial').css('display')=='block'){
 					if(tutStep==0){
-						myNumber=2;
+						myNumber=4;
 					}else if(tutStep==1){
-						myNumber=3;
-					}else if(tutStep==2){
-						myNumber=(-1);
-					}else if(tutStep==3){
-						myNumber=(-2);
-					}else if(tutStep==4){
 						myNumber=1;
+					}else if(tutStep==2){
+						myNumber=8;
+					}else if(tutStep==3){
+						myNumber=2;
+					}else if(tutStep==4){
+						myNumber=3;
 					}
 
 					$('.number-area p').html(myNumber);
@@ -414,7 +432,7 @@ function instructions(){
 	if(tutStep==0){
 		$('.instructions p').html('Touch a shaded block to place a piece down.');
 	}else if(tutStep==1){
-		$('.instructions p').html('You need exactly four adjacent blocks that add up to 4.');
+		$('.instructions p').html('You need exactly four adjacent blocks that add up to 10.');
 	}else if(tutStep==2){
 		$('.instructions p').html('If you wait 20 seconds, the block will be automatically placed down.');
 
@@ -509,7 +527,7 @@ function myShape(x1,y1,x2,y2,x3,y3){
 		n3=parseInt($grid[dataRow+y2-1][dataCol+x2-1].html().match(/-?\d/));
 		n4=parseInt($grid[dataRow+y3-1][dataCol+x3-1].html().match(/-?\d/));
 
-		if(n1+n2+n3+n4==4){
+		if(n1+n2+n3+n4==numGoal){
 			$grid[dataRow-1][dataCol-1].addClass('winner');
 			$grid[dataRow+y1-1][dataCol+x1-1].addClass('winner');
 			$grid[dataRow+y2-1][dataCol+x2-1].addClass('winner');
@@ -685,4 +703,102 @@ function timeOut(){
 			}
 		}
 	}
+}
+
+/*---------------
+ADVERTISEMENT
+---------------*/
+
+function advertisement(){
+	if(/(android)/i.test(navigator.userAgent)){ // for android & amazon-fireos
+    	admobid={
+    		banner: 'ca-app-pub-4721144554459045/9645148012', // or DFP format "/6253334/dfp_example_ad"
+    		interstitial: 'ca-app-pub-4721144554459045/2121881216'
+    	};
+    }else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)){ // for ios
+    	admobid={
+    		banner: 'ca-app-pub-4721144554459045/5075347613', // or DFP format "/6253334/dfp_example_ad"   
+    		interstitial: 'ca-app-pub-4721144554459045/6552080812'
+    	};
+    }
+}
+
+function bannerAdShow(){
+	if(AdMob) AdMob.createBanner({
+        adId:admobid.banner,
+        position:AdMob.AD_POSITION.BOTTOM_CENTER,
+        autoShow:true
+    });
+}
+
+function bannerAdHideStart(){
+	AdMob.removeBanner();
+	location.replace('start.html');
+}
+
+function bannerAdHideTut(){
+	AdMob.removeBanner();
+	location.replace('tutorial.html');
+}
+
+function interstitialAdPrep(){
+	if(AdMob) AdMob.prepareInterstitial({
+		adId:admobid.interstitial,
+		autoShow:false
+	});
+}
+
+function interstitialAdShow(){
+	AdMob.showInterstitial();
+}
+
+/*---------------
+HANDLE BACK BUTTON
+---------------*/
+
+document.addEventListener('deviceready',onDeviceReady,false);
+
+function onDeviceReady(){
+	//navigator.splashscreen.hide();
+
+	document.addEventListener("resume", onResume, false);
+    document.addEventListener("pause", onPause, false);
+
+    function onPause(){
+	    audio.pause();
+	}
+
+	function onResume(){
+   		if($('.fa-volume-up').css('display')!='none'){
+			audio.play();
+		}
+	}
+
+	document.addEventListener('backbutton',function(event){
+		if($('.main').css('display')=='block'){
+			event.preventDefault();
+			navigator.app.exitApp();
+		}else if($('.play').css('display')=='block'){
+			event.preventDefault();
+
+			playPopUp();
+			backCount++;
+			if(backCount==2){
+				$('.game-over').hide();
+				$('.overlay').hide();
+				backCount=0;
+			}
+		}else if($('.info').css('display')=='block' || $('.tutorial').css('display')=='block'){
+			event.preventDefault();
+
+			$('.game-over').hide();
+			$('.overlay').hide();
+			$('.info').hide();
+			$('.main').show();
+			$('.tutorial').hide();
+			$('.tutorial-overlay').hide();
+			$('.pp-text').hide();
+			$('.tou-text').hide();
+		}
+	},false);
 }
