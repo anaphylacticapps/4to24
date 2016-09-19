@@ -449,29 +449,13 @@ h1 span:last-child, .game-over h2 span:last-child{
 	100%{background:none;}
 }
 
-@keyframes warning{
-	0%{background:rgba(255,255,0,0.75);}
-	15%{background:none;}
-	20%{background:rgba(255,255,0,0.75);}
-	35%{background:none;}
-	40%{background:rgba(255,255,0,0.75);}
-	55%{background:none;}
-	60%{background:rgba(255,255,0,0.75);}
-	75%{background:none;}
-	80%{background:rgba(255,255,0,0.75);}
-	85%{background:none;}
-	90%{background:rgba(255,255,0,0.75);}
-	92%{background:none;}
-	94%{background:rgba(255,255,0,0.75);}
-	96%{background:none;}
-}
 
 /**********
 *TUTORIAL*
 **********/
 
 .tutorial .block-area{
-	max-width:150px;
+	max-width:200px;
 }
 
 .tutorial .block-group div{
@@ -480,7 +464,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .tutorial .number{
 	position:relative;
-	max-width:150px;
+	max-width:200px;
 	-webkit-transform:translateX(-50%);
 	top:2%;
 }
@@ -496,7 +480,6 @@ h1 span:last-child, .game-over h2 span:last-child{
 	font-size:1em;
 	text-align:center;
 	top:6%;
-	text-shadow:0px 0px 15px #0ff;
 }
 
 /**********
@@ -586,8 +569,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 }
 
 .warning{
-	animation:warning 3s;
-	-webkit-animation:warning 3s;
+	background:rgba(255,255,0,0.75);
 }
 
 /**********
