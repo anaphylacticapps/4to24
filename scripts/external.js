@@ -13,6 +13,8 @@ $(document).ready(function(){
 	toTut();
 	hideOverlay();
 
+	tutNext();
+
 	insertBlocks();
 
 	toggleMusic();
@@ -49,6 +51,8 @@ var toInterval;
 var numInterval=null;
 var warnTimeout;
 var warnClassTimeout;
+var tutTimeout;
+var tutClassTimeout;
 
 var tutStep=0;
 var backCount=0;
@@ -77,7 +81,7 @@ function setHeight(){
 	if($('.tutorial').css('display')=='block'){
 		blockWidth=$('.tutorial .block-group div').width();
 		numCol=2;
-		numRow=3;
+		numRow=2;
 	}
 
 	$('.block-group').height(blockWidth);
@@ -102,6 +106,20 @@ function toPlay(){
 		$('.overlay').hide();
 		$('.tutorial-overlay').hide();
 
+		backCount=0;
+
+		if(tutStep==8){
+			clearTimeout(tutInsertTimeout);
+			tutStep=0;
+		}
+
+		if(tutStep==14){
+			clearTimeout(tutTimeout);
+			clearTimeout(tutClassTimeout);
+			$grid[0][0].removeClass('warning');
+			tutStep=0;
+		}
+
 		clearInterval(bgInterval);
 		setHeight();
 		cacheGrid('.play');
@@ -116,6 +134,8 @@ function toReplay(){
 	$('.replay-b').click(function(){
 		$('.game-over').hide();
 		$('.overlay').hide();
+
+		backCount=0;
 
 		replay();
 		resetScore();
@@ -132,9 +152,9 @@ function toTut(){
 		setHeight();
 		cacheGrid('.tutorial');
 		resetScore();
-		setRandNum();
 		instructions();
-		startBlocks();
+		replay();
+		clearInterval(bgInterval);
 	});
 }
 
@@ -147,16 +167,28 @@ function toMain(){
 		$('.main').show();
 		$('.tutorial').hide();
 		$('.tutorial-overlay').hide();
-
-		replay();
-		bgAnimate();
 		
 		if($('.play').css('display')=='block'){
 			clearTimeout(warnTimeout);
 			clearTimeout(warnClassTimeout);
 			$grid[warnRow][warnCol].removeClass('warning');
 		}
-	})
+
+		if(tutStep==8){
+			clearTimeout(tutInsertTimeout);
+			tutStep=0;
+		}
+
+		if(tutStep==14){
+			clearTimeout(tutTimeout);
+			clearTimeout(tutClassTimeout);
+			$grid[0][0].removeClass('warning');
+			tutStep=0;
+		}
+
+		replay();
+		bgAnimate();
+	});
 }
 
 function toPopUp(){
@@ -178,6 +210,8 @@ function toPopUp(){
 }
 
 function playPopUp(){
+	backCount=1;
+
 	$('.replay-b').show();
 	$('.game-over .play-b').hide();
 
@@ -193,7 +227,7 @@ function playPopUp(){
 function tutPopUp(){
 	$('.replay-b').hide();
 	$('.game-over .play-b').show();
-	$('.game-over h2').html('4 <span>t</span>o <span>2</span>4');
+	$('.game-over h2').html('Fo<span>u</span>r Fac<span>t</span>ors');
 }
 
 function toInfo(){
@@ -231,6 +265,7 @@ function hideOverlay(){
 		$('.overlay').hide();
 
 		if($('.play').css('display')=='block'){
+			backCount=0;
 			timeOut();
 		}
 	});
@@ -314,23 +349,9 @@ function setRandNum(){
 				clearInterval(numInterval);
 				numInterval=null;
 
-				if($('.tutorial').css('display')=='block'){
-					if(tutStep==0){
-						myNumber=3;
-					}else if(tutStep==1){
-						myNumber=12;
-					}else if(tutStep==2){
-						myNumber=9;
-					}else if(tutStep==3){
-						myNumber=6;
-					}else if(tutStep==4){
-						myNumber=4;
-					}
+				setTutNumber();
 
-					$('.number-area p').html(myNumber);
-				}
-
-				if(tutStep!=2){
+				if($('.tutorial').css('display')=='none' || (tutStep!=0 && tutStep!=14 && tutStep!=15)){
 					$('.block-group div').removeClass('no-clicky');
 				}
 			}
@@ -341,23 +362,47 @@ function setRandNum(){
 }
 
 /*---------------
+SET TUTORIAL NUMBER
+---------------*/
+
+function setTutNumber(){
+	if($('.tutorial').css('display')=='block'){
+		if(tutStep==0){
+			myNumber=3;
+		}else if(tutStep==4){
+			myNumber=2;
+		}else if(tutStep==5){
+			myNumber=4;
+		}else if(tutStep==6){
+			myNumber=12;
+		}else if(tutStep==9){
+			myNumber=7;
+		}else if(tutStep==10){
+			myNumber=7;
+		}else if(tutStep==11){
+			myNumber=1;
+		}else if(tutStep==12){
+			myNumber=7;
+		}
+
+		$('.number-area p').html(myNumber);
+	}
+}
+
+/*---------------
 HIGHLIGHT BLOCKS
 ---------------*/
 
 function startBlocks(){
-	$('.block-area .block-group:last-child div').addClass('highlight');
+	$('.block-area .block-group div').addClass('highlight');
 }
 
 function newBlocks(){
 	$('.highlight').removeClass('highlight');
 
-	for(y=0; y<numRow-1; y++){
+	for(y=0; y<numRow; y++){
 		for(x=0; x<numCol; x++){
-			if($grid[y][x].hasClass('selection')){
-				if(!$grid[y+1][x].hasClass('selection')){
-					$grid[y+1][x].addClass('highlight');
-				}
-			}else if(y==0 && !$grid[y][x].hasClass('selection')){
+			if(!$grid[y][x].hasClass('selection')){
 				$grid[y][x].addClass('highlight');
 			}
 		}
@@ -415,9 +460,11 @@ function generalInsert(target){
 	shapeZ();
 
 	var $winner=$('.winner');
-	$winner.addClass('gagnant');
+	if(tutStep!=7 && tutStep!=13){
+		$winner.addClass('gagnant');
+	}
 
-	if($winner.hasClass('gagnant')){
+	if($winner.hasClass('gagnant') && tutStep!=7 && tutStep!=13){
 		if(musicState=='on'){
 			winAudio.play();
 		}
@@ -445,39 +492,115 @@ function generalInsert(target){
 }
 
 /*---------------
+TUTORIAL INSERT
+---------------*/
+
+function tutInsert(){
+	var $winner=$('.winner');
+	$winner.addClass('gagnant');
+
+	if($winner.hasClass('gagnant')){
+		if(musicState=='on'){
+			winAudio.play();
+		}
+
+		setTimeout(function(){
+			$winner.removeClass('selection');
+			$winner.empty();
+			$winner.removeClass('gagnant');
+			$winner.removeClass('winner');
+			newBlocks();
+			
+			$('.score p').html(score);
+			setHighscore();
+			timeOut();
+		},500);
+	}
+}
+
+/*---------------
 TUTORIAL INSTRUCTIONS
 ---------------*/
 
 function instructions(){
 	if(tutStep==0){
-		$('.instructions p').html('Touch a shaded block to place a number on the grid.');
+		$('.instructions p').html('The game is played by placing numbers on a grid.');
+		$('.tut-next-container').show();
 	}else if(tutStep==1){
-		$('.instructions p').html('You need exactly four adjacent blocks that share the same least common multiple.');
+		$('.instructions p').html('The object of the game is to make the numbers disappear.');
 	}else if(tutStep==2){
-		$('.instructions p').html('If you wait 6 seconds, the number will be automatically placed down.');
+		$('.instructions p').html('A group of 4 numbers will disappear if the largest is a multiple of the smaller ones.');
+	}else if(tutStep==3){
+		$('.instructions p').html('Tap the grid to place 4 numbers down.');
+		
+		$('.block-group div').removeClass('no-clicky');
+		$('.tut-next-container').hide();
+	}else if(tutStep==7){
+		$('.instructions p').html('This group will disappear because 12 is a multiple of 3, 2, and 4.');
+		
+		$('.block-group div').addClass('no-clicky');
+		$('.tut-next-container').show();
+	}else if(tutStep==8){
+		$('.tut-next-container').hide();
+		tutInsert();
 
-		var tutTimeout=setTimeout(function(){
+		tutInsertTimeout=setTimeout(function(){
+			$grid[0][0].html('<p>12</p>').addClass('selection').removeClass('highlight');
+			$grid[0][1].html('<p>3</p>').addClass('selection').removeClass('highlight');
+			$grid[1][0].html('<p>9</p>').addClass('selection').removeClass('highlight');
+			$grid[1][1].html('<p>2</p>').addClass('selection').removeClass('highlight');
+			$('.instructions p').html('This group will not disappear because 9 is not a multiple of 12.');
+			$('.tut-next-container').show();
+		},500);
+	}else if(tutStep==9){
+		replay();
+		$('.tut-next-container').hide();
+
+		$('.instructions p').html('Duplicates are allowed. Place 4 numbers on the grid.');
+	}else if(tutStep==13){
+		$('.instructions p').html('This group will disappear because 7 is a multiple of 7 and 1.');
+
+		$('.tut-next-container').show();
+	}else if(tutStep==14){
+		tutInsert();
+		setRandNum();
+
+		$('.instructions p').html('If you wait 6 seconds, the number will be automatically placed down.');
+		$('.tut-next-container').hide();
+
+		tutClassTimeout=setTimeout(function(){
 			if(musicState=='on'){
 				warnAudio.play();
 			}
 
-			$grid[2][1].addClass('warning');
+			$grid[0][0].addClass('warning');
 		},6000);
 							
-		warnTimeout=setTimeout(function(){
-			generalInsert($grid[2][1]);
+		tutTimeout=setTimeout(function(){
+			generalInsert($grid[0][0]);
 		},9000);
-	}else if(tutStep==3){
-		$('.instructions p').html('You lose when you run out of empty spaces. Place another block down.');
-	}else if(tutStep==4){
-		$('.instructions p').html('Place your last block down. Good luck!');
-	}else if(tutStep==5){
-		setTimeout(function(){
-			$('.tutorial-overlay').show();
-			$('.game-over').show();
-			tutPopUp();
-		},500);
+	}else if(tutStep==15){
+		$('.instructions p').html('Good luck!');
+		$('.tut-next-container').show();
+	}else if(tutStep==16){
+		$('.tutorial-overlay').show();
+		$('.game-over').show();
+		tutPopUp();
 	}
+}
+
+/*---------------
+TUTORIAL NEXT
+---------------*/
+
+function tutNext(){
+	$('.tut-next-container').click(function(){
+		tutStep++;
+		if(musicState=='on'){
+			tapAudio.play();
+		}
+		instructions();
+	});
 }
 
 /*---------------
@@ -500,7 +623,7 @@ GAME OVER
 ---------------*/
 
 function gameOver(){
-	if(!$('.block-group div').hasClass('highlight')){
+	if(!$('.block-group div').hasClass('highlight') && $('.tutorial').css('display')=='none'){
 		if(musicState=='on'){
 			loseAudio.play();
 		}
@@ -706,8 +829,8 @@ function timeOut(){
 	if($('.play').css('display')=='block'){
 		var greg=true;
 		
-		for(y=numRow-1;y>=0;y--){
-			for(x=numCol-1;x>=0;x--){
+		for(y=0;y<numRow;y++){
+			for(x=0;x<numCol;x++){
 				if(!$grid[y][x].hasClass('selection')){
 					
 					warnRow=y;
@@ -815,15 +938,27 @@ function onDeviceReady(){
 		}else if($('.play').css('display')=='block'){
 			event.preventDefault();
 
-			toPopUp();
-			backCount++;
-			if(backCount==2){
+			if(backCount==0){
+				$('.game-over').show();
+				$('.overlay').show();
+
+				warnAudio.pause();
+				warnAudio.currentTime=0;
+
+				playPopUp();
+			}else if(backCount==1){
 				$('.game-over').hide();
 				$('.overlay').hide();
+
+				timeOut();
 				backCount=0;
 			}
-		}else if($('.info').css('display')=='block' || $('.tutorial').css('display')=='block'){
+		}else if($('.info').css('display')=='block' || $('.tutorial').css('display')=='block' || $('.highscore-container').css('display')=='block'){
 			event.preventDefault();
+
+			if($('.tutorial').css('display')=='block'){
+				bgAnimate();
+			}
 
 			$('.game-over').hide();
 			$('.overlay').hide();
@@ -834,6 +969,18 @@ function onDeviceReady(){
 			$('.tou-text').hide();
 			$('.highscore-container').hide();
 			$('.main').show();
+
+			if(tutStep==8){
+				clearTimeout(tutInsertTimeout);
+				tutStep=0;
+			}
+
+			if(tutStep==14){
+				clearTimeout(tutTimeout);
+				clearTimeout(tutClassTimeout);
+				$grid[0][0].removeClass('warning');
+				tutStep=0;
+			}
 		}
 	},false);
 }

@@ -149,7 +149,7 @@ header{
 
 .info-bg p:first-child{
 	top:20%;
-	left:20%;
+	left:8%;
 	animation:neonspark 2.75s infinite;
 	-webkit-animation:neonspark 2.75s infinite;
 }
@@ -451,19 +451,26 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 @keyframes warning{
 	0%{background:rgba(255,255,0,0.75);}
-	15%{background:none;}
+	15%{background:rgba(0,255,255,0.25);}
 	20%{background:rgba(255,255,0,0.75);}
-	35%{background:none;}
+	35%{background:rgba(0,255,255,0.25);}
 	40%{background:rgba(255,255,0,0.75);}
-	55%{background:none;}
+	55%{background:rgba(0,255,255,0.25);}
 	60%{background:rgba(255,255,0,0.75);}
-	75%{background:none;}
+	75%{background:rgba(0,255,255,0.25);}
 	80%{background:rgba(255,255,0,0.75);}
-	85%{background:none;}
+	85%{background:rgba(0,255,255,0.25);}
 	90%{background:rgba(255,255,0,0.75);}
-	92%{background:none;}
+	92%{background:rgba(0,255,255,0.25);}
 	94%{background:rgba(255,255,0,0.75);}
-	96%{background:none;}
+	96%{background:rgba(0,255,255,0.25);}
+}
+
+@keyframes tut-next{
+	0%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	40%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	50%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+	90%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
 }
 
 /**********
@@ -495,8 +502,19 @@ h1 span:last-child, .game-over h2 span:last-child{
 	padding:10px;
 	font-size:1em;
 	text-align:center;
-	top:6%;
+	top:8%;
 	text-shadow:0px 0px 15px #0ff;
+}
+
+.tut-next-container{
+	position:relative;
+	margin:auto;
+	padding:10px;
+	cursor:pointer;
+}
+
+.tut-next{
+	animation:tut-next 1s infinite;
 }
 
 /**********
