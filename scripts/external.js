@@ -683,8 +683,18 @@ function myShape(x1,y1,x2,y2,x3,y3){
 			$grid[dataRow+y1-1][dataCol+x1-1].addClass('winner');
 			$grid[dataRow+y2-1][dataCol+x2-1].addClass('winner');
 			$grid[dataRow+y3-1][dataCol+x3-1].addClass('winner');
-
-			score=(score+n1+n2+n3+n4);
+			
+			if(madMax==12){
+				score=score+10;
+			}else if(madMax==10 || madMax==8 || madMax==6){
+				score=score+20;
+			}else if(madMax==9 || madMax==4){
+				score=score+40;
+			}else if(madMax==13 || madMax==11 || madMax==7 || madMax==5 || madMax==3 || madMax==2){
+				score=score+80;
+			}else{
+				score=score+160;
+			}
 		}
 	}
 }
