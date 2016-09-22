@@ -19,6 +19,7 @@ $(document).ready(function(){
 
 	toggleMusic();
 	setMusic();
+	setMusicStorage();
 
 	bgAnimate();
 
@@ -91,6 +92,7 @@ function setHeight(){
 	$('.number').height(blockWidth);
 
 	$('.play .number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numRow))/2));
+	$('.instructions').css('top',(blockWidth+($('.tutorial').height()-(blockWidth*3))/2));
 }
 
 /*---------------
@@ -297,7 +299,12 @@ function toggleMusic(){
 		$('.fa-volume-up').toggle();
 		$('.fa-volume-off').toggle();
 
-		if($('.fa-volume-up').css('display')=='none'){
+		setMusicStorage();
+	});
+}
+
+function setMusicStorage(){
+	if($('.fa-volume-up').css('display')=='none'){
 			localStorage.setItem('music','off');
 			musicState=localStorage.getItem('music');
 			audio.pause();
@@ -308,7 +315,6 @@ function toggleMusic(){
 			musicState=localStorage.getItem('music');
 			audio.play();
 		}
-	});
 }
 
 function setMusic(){

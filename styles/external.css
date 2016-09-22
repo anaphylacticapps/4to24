@@ -20,6 +20,7 @@ body{
 	background:#222;
 	font-family:'Bungee Hairline';
 	color:#0ff;
+	min-height:600px;
 }
 
 p{
@@ -52,6 +53,9 @@ header{
 	top:2%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
 	transform:translateX(-50%);
 	border:3px solid #0ff;
 	box-shadow:0px 0px 15px 0px #0ff;
@@ -70,6 +74,9 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	color:#0ff;
 	font-size:1.25em;
@@ -82,6 +89,9 @@ header{
 	height:100%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
 	transform:translateX(-50%);
 }
 
@@ -91,6 +101,9 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 }
 
@@ -123,6 +136,9 @@ header{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	border:3px solid #0ff;
 	box-shadow:0px 0px 15px 0px #0ff;
@@ -145,12 +161,16 @@ header{
 	left:5%;
 	animation:neonspark 2.75s infinite;
 	-webkit-animation:neonspark 2.75s infinite;
+	-moz-animation:neonspark 2.75s infinite;
+	-o-animation:neonspark 2.75s infinite;
 }
 
 .info-bg p:first-child{
 	top:20%;
 	left:8%;
 	animation:neonspark 2.75s infinite;
+	-moz-animation:neonspark 2.75s infinite;
+	-o-animation:neonspark 2.75s infinite;
 	-webkit-animation:neonspark 2.75s infinite;
 }
 
@@ -169,6 +189,8 @@ header{
 	top:40%;
 	left:90%;
 	animation:neonspark 3s infinite;
+	-moz-animation:neonspark 3s infinite;
+	-o-animation:neonspark 3s infinite;
 	-webkit-animation:neonspark 3s infinite;
 }
 
@@ -176,6 +198,8 @@ header{
 	top:90%;
 	left:25%;
 	animation:neonspark 3.25s infinite;
+	-moz-animation:neonspark 3.25s infinite;
+	-o-animation:neonspark 3.25s infinite;
 	-webkit-animation:neonspark 3.25s infinite;
 }
 
@@ -210,17 +234,21 @@ h1,h2{
 	text-align:center;
 	top:15%;
 	font-family:'Bungee Outline';
-	font-size:2.25em;
+	font-size:2em;
 	text-shadow:0px 0px 15px #0ff;
 }
 
 h1 span:first-child, .game-over h2 span:first-child{
 	animation:neonspark 1.5s infinite;
+	-moz-animation:neonspark 1.5s infinite;
+	-o-animation:neonspark 1.5s infinite;
 	-webkit-animation:neonspark 1.5s infinite;
 }
 
 h1 span:last-child, .game-over h2 span:last-child{
 	animation:neonspark 2.5s infinite;
+	-moz-animation:neonspark 2.5s infinite;
+	-o-animation:neonspark 2.5s infinite;
 	-webkit-animation:neonspark 2.5s infinite;
 }
 
@@ -228,6 +256,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	position:absolute;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	width:225px;
 	padding:10px;
@@ -302,9 +333,14 @@ h1 span:last-child, .game-over h2 span:last-child{
 	top:50%;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	height:225px;
 	animation:borderSwitch1 0.5s infinite;
+	-moz-animation:borderSwitch1 0.5s infinite;
+	-o-animation:borderSwitch1 0.5s infinite;
 	-webkit-animation:borderSwitch1 0.5s infinite;
 	z-index:1000;
 }
@@ -315,6 +351,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 }
 
@@ -326,11 +365,16 @@ h1 span:last-child, .game-over h2 span:last-child{
 	top:50%;
 	left:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	padding:10px;
 	height:225px;
 	animation:borderSwitch2 0.5s infinite;
 	-webkit-animation:borderSwitch2 0.5s infinite;
+	-moz-animation:borderSwitch2 0.5s infinite;
+	-o-animation:borderSwitch2 0.5s infinite;
 	z-index:1000;
 }
 
@@ -353,6 +397,8 @@ h1 span:last-child, .game-over h2 span:last-child{
 	margin-top:-3px;
 	animation:flash1 2s infinite;
 	-webkit-animation:flash1 2s infinite;
+	-moz-animation:flash1 2s infinite;
+	-o-animation:flash1 2s infinite;
 }
 
 .flash-3{
@@ -360,6 +406,8 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:85%;
 	margin-bottom:-3px;
 	animation:flash1 2s infinite reverse;
+	-moz-animation:flash1 2s infinite reverse;
+	-o-animation:flash1 2s infinite reverse;
 	-webkit-animation:flash1 2s infinite reverse;
 }
 
@@ -378,12 +426,16 @@ h1 span:last-child, .game-over h2 span:last-child{
 	margin-right:-3px;
 	left:100%;
 	animation:flash2 2s infinite;
+	-moz-animation:flash2 2s infinite;
+	-o-animation:flash2 2s infinite;
 	-webkit-animation:flash2 2s infinite;
 }
 
 .flash-4{
 	margin-left:-3px;
 	animation:flash2 2s infinite reverse;
+	-moz-animation:flash2 2s infinite reverse;
+	-o-animation:flash2 2s infinite reverse;
 	-webkit-animation:flash2 2s infinite reverse;
 }
 
@@ -399,7 +451,46 @@ h1 span:last-child, .game-over h2 span:last-child{
 	80%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
 }
 
+@-webkit-keyframes neonspark{
+	0%{text-shadow:none;color:#666;}
+	40%{text-shadow:none;color:#666;}
+	45%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+	50%{text-shadow:none;color:#666;}
+	80%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+}
+
+@-moz-keyframes neonspark{
+	0%{text-shadow:none;color:#666;}
+	40%{text-shadow:none;color:#666;}
+	45%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+	50%{text-shadow:none;color:#666;}
+	80%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+}
+
+@-o-keyframes neonspark{
+	0%{text-shadow:none;color:#666;}
+	40%{text-shadow:none;color:#666;}
+	45%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+	50%{text-shadow:none;color:#666;}
+	80%{text-shadow:0px 0px 10px #0ff;color:#0ff;}
+}
+
 @keyframes flash1{
+	0%{left:0;}
+	100%{left:85%;}
+}
+
+@-webkit-keyframes flash1{
+	0%{left:0;}
+	100%{left:85%;}
+}
+
+@-moz-keyframes flash1{
+	0%{left:0;}
+	100%{left:85%;}
+}
+
+@-o-keyframes flash1{
 	0%{left:0;}
 	100%{left:85%;}
 }
@@ -409,7 +500,37 @@ h1 span:last-child, .game-over h2 span:last-child{
 	100%{top:90%;}
 }
 
+@-webkit-keyframes flash2{
+	0%{top:0;}
+	100%{top:90%;}
+}
+
+@-moz-keyframes flash2{
+	0%{top:0;}
+	100%{top:90%;}
+}
+
+@-o-keyframes flash2{
+	0%{top:0;}
+	100%{top:90%;}
+}
+
 @keyframes dot1{
+	0%{opacity:0;}
+	5%{opacity:1;}
+}
+
+@-webkit-keyframes dot1{
+	0%{opacity:0;}
+	5%{opacity:1;}
+}
+
+@-moz-keyframes dot1{
+	0%{opacity:0;}
+	5%{opacity:1;}
+}
+
+@-o-keyframes dot1{
 	0%{opacity:0;}
 	5%{opacity:1;}
 }
@@ -419,12 +540,63 @@ h1 span:last-child, .game-over h2 span:last-child{
 	50%{opacity:1;}
 }
 
+@-webkit-keyframes dot2{
+	0%{opacity:0;}
+	50%{opacity:1;}
+}
+
+@-moz-keyframes dot2{
+	0%{opacity:0;}
+	50%{opacity:1;}
+}
+
+@-o-keyframes dot2{
+	0%{opacity:0;}
+	50%{opacity:1;}
+}
+
 @keyframes dot3{
 	0%{opacity:0;}
 	90%{opacity:1;}
 }
 
+@-webkit-keyframes dot3{
+	0%{opacity:0;}
+	90%{opacity:1;}
+}
+
+@-moz-keyframes dot3{
+	0%{opacity:0;}
+	90%{opacity:1;}
+}
+
+@-o-keyframes dot3{
+	0%{opacity:0;}
+	90%{opacity:1;}
+}
+
 @keyframes borderSwitch1{
+	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+	100%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+}
+
+@-webkit-keyframes borderSwitch1{
+	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+	100%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+}
+
+@-moz-keyframes borderSwitch1{
+	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+	100%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
+}
+
+@-o-keyframes borderSwitch1{
 	0%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
 	45%{border:2px dashed #0ff; box-shadow:0px 0px 15px 0px #0ff;}
 	55%{border:2px dashed #666; box-shadow:0px 0px 0px 0px #666;}
@@ -438,7 +610,61 @@ h1 span:last-child, .game-over h2 span:last-child{
 	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
 }
 
+@-webkit-keyframes borderSwitch2{
+	0%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	45%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	55%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+}
+
+@-moz-keyframes borderSwitch2{
+	0%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	45%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	55%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+}
+
+@-o-keyframes borderSwitch2{
+	0%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	45%{border:2px solid #666; box-shadow:0px 0px 0px 0px #666;}
+	55%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+	100%{border:2px solid #0ff; box-shadow:0px 0px 15px 0px #0ff;}
+}
+
 @keyframes winner-gagnant{
+	0%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	40%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	45%{background:none;}
+	50%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	55%{background:none;}
+	60%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	95%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(25,255,0,0.75) inset;}
+	100%{background:none;}
+}
+
+@-webkit-keyframes winner-gagnant{
+	0%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	40%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	45%{background:none;}
+	50%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	55%{background:none;}
+	60%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	95%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(25,255,0,0.75) inset;}
+	100%{background:none;}
+}
+
+@-moz-keyframes winner-gagnant{
+	0%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	40%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	45%{background:none;}
+	50%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	55%{background:none;}
+	60%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
+	95%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(25,255,0,0.75) inset;}
+	100%{background:none;}
+}
+
+@-o-keyframes winner-gagnant{
 	0%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
 	40%{background:rgba(255,255,0,0.75);border:1px solid rgba(255,255,0,0.75);box-shadow:0px 0px 10px 0px rgba(255,255,0,0.75) inset;}
 	45%{background:none;}
@@ -466,7 +692,79 @@ h1 span:last-child, .game-over h2 span:last-child{
 	96%{background:rgba(0,255,255,0.25);}
 }
 
+@-webkit-keyframes warning{
+	0%{background:rgba(255,255,0,0.75);}
+	15%{background:rgba(0,255,255,0.25);}
+	20%{background:rgba(255,255,0,0.75);}
+	35%{background:rgba(0,255,255,0.25);}
+	40%{background:rgba(255,255,0,0.75);}
+	55%{background:rgba(0,255,255,0.25);}
+	60%{background:rgba(255,255,0,0.75);}
+	75%{background:rgba(0,255,255,0.25);}
+	80%{background:rgba(255,255,0,0.75);}
+	85%{background:rgba(0,255,255,0.25);}
+	90%{background:rgba(255,255,0,0.75);}
+	92%{background:rgba(0,255,255,0.25);}
+	94%{background:rgba(255,255,0,0.75);}
+	96%{background:rgba(0,255,255,0.25);}
+}
+
+@-moz-keyframes warning{
+	0%{background:rgba(255,255,0,0.75);}
+	15%{background:rgba(0,255,255,0.25);}
+	20%{background:rgba(255,255,0,0.75);}
+	35%{background:rgba(0,255,255,0.25);}
+	40%{background:rgba(255,255,0,0.75);}
+	55%{background:rgba(0,255,255,0.25);}
+	60%{background:rgba(255,255,0,0.75);}
+	75%{background:rgba(0,255,255,0.25);}
+	80%{background:rgba(255,255,0,0.75);}
+	85%{background:rgba(0,255,255,0.25);}
+	90%{background:rgba(255,255,0,0.75);}
+	92%{background:rgba(0,255,255,0.25);}
+	94%{background:rgba(255,255,0,0.75);}
+	96%{background:rgba(0,255,255,0.25);}
+}
+
+@-o-keyframes warning{
+	0%{background:rgba(255,255,0,0.75);}
+	15%{background:rgba(0,255,255,0.25);}
+	20%{background:rgba(255,255,0,0.75);}
+	35%{background:rgba(0,255,255,0.25);}
+	40%{background:rgba(255,255,0,0.75);}
+	55%{background:rgba(0,255,255,0.25);}
+	60%{background:rgba(255,255,0,0.75);}
+	75%{background:rgba(0,255,255,0.25);}
+	80%{background:rgba(255,255,0,0.75);}
+	85%{background:rgba(0,255,255,0.25);}
+	90%{background:rgba(255,255,0,0.75);}
+	92%{background:rgba(0,255,255,0.25);}
+	94%{background:rgba(255,255,0,0.75);}
+	96%{background:rgba(0,255,255,0.25);}
+}
+
 @keyframes tut-next{
+	0%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	40%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	50%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+	90%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+}
+
+@-webkit-keyframes tut-next{
+	0%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	40%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	50%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+	90%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+}
+
+@-moz-keyframes tut-next{
+	0%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	40%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
+	50%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+	90%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
+}
+
+@-o-keyframes tut-next{
 	0%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
 	40%{color:#0ff;text-shadow:0px 0px 15px #0ff;}
 	50%{color:#ff0;text-shadow:0px 0px 15px #ff0;}
@@ -489,6 +787,10 @@ h1 span:last-child, .game-over h2 span:last-child{
 	position:relative;
 	max-width:150px;
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
+	transform:translateX(-50%);
 	top:2%;
 }
 
@@ -497,13 +799,18 @@ h1 span:last-child, .game-over h2 span:last-child{
 }
 
 .instructions{
-	position:relative;
+	position:absolute;
 	width:100%;
 	padding:10px;
 	font-size:1em;
 	text-align:center;
 	top:8%;
 	text-shadow:0px 0px 15px #0ff;
+	-webkit-transform:translateY(-50%);
+	-moz-transform:translateY(-50%);
+	-ms-transform:translateY(-50%);
+	-o-transform:translateY(-50%);
+	transform:translateY(-50%);
 }
 
 .tut-next-container{
@@ -515,6 +822,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .tut-next{
 	animation:tut-next 1s infinite;
+	-webkit-animation:tut-next 1s infinite;
+	-moz-animation:tut-next 1s infinite;
+	-o-animation:tut-next 1s infinite;
 }
 
 /**********
@@ -538,6 +848,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	width:95%;
 	left:50%;
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
 	transform:translateX(-50%);
 	border:3px solid #0ff;
 	float:left;
@@ -566,6 +879,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	transform:translate(-50%,-50%);
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 }
 
 .number-area{
@@ -578,6 +894,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	transform:translateX(-50%);
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
 }
 
 .number p, .block-group div p{
@@ -585,6 +904,9 @@ h1 span:last-child, .game-over h2 span:last-child{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	font-size:1.25em;
 	color:#262626;
@@ -601,11 +923,16 @@ h1 span:last-child, .game-over h2 span:last-child{
 .gagnant{
 	animation:winner-gagnant 0.5s;
 	-webkit-animation:winner-gagnant 0.5s;
+	-moz-animation:winner-gagnant 0.5s;
+	-o-animation:winner-gagnant 0.5s;
 }
 
 .warning{
 	animation:warning 3s;
 	-webkit-animation:warning 3s;
+	-moz-animation:warning 3s;
+	-ms-animation:warning 3s;
+	-o-animation:warning 3s;
 }
 
 /**********
@@ -620,6 +947,9 @@ h2{
 	font-size:1em;
 	position:absolute;
 	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
 	transform:translateX(-50%);
 	left:50%;
 	top:50%;
@@ -628,17 +958,23 @@ h2{
 
 .loading-area p span:first-child{
 	animation:dot1 1.35s infinite;
+	-moz-animation:dot1 1.35s infinite;
+	-o-animation:dot1 1.35s infinite;
 	-webkit-animation:dot1 1.35s infinite;
 }
 
 .loading-area p span:nth-child(2){
 	animation:dot2 1.35s infinite;
 	-webkit-animation:dot2 1.35s infinite;
+	-moz-animation:dot2 1.35s infinite;
+	-o-animation:dot2 1.35s infinite;
 }
 
 .loading-area p span:last-child{
 	animation:dot3 1.35s infinite;
 	-webkit-animation:dot3 1.35s infinite;
+	-moz-animation:dot3 1.35s infinite;
+	-o-animation:dot3 1.35s infinite;
 }
 
 /**********
@@ -671,6 +1007,9 @@ h2{
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	background:#222;
 	overflow-y:scroll;
