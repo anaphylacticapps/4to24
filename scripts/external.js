@@ -33,6 +33,7 @@ VARIABLE DECLERATIONS
 ---------------*/
 
 var blockWidth;
+var blockWidthTop;
 
 var myNumber;
 var score=0;
@@ -75,6 +76,7 @@ SET HEIGHT
 function setHeight(){
 	if($('.play').css('display')=='block'){
 		blockWidth=$('.block-group div').width();
+		blockWidthTop=$('.play .number-area').width();
 		numCol=4;
 		numRow=4;
 	}
@@ -89,7 +91,9 @@ function setHeight(){
 
 	$('.block-area').height(blockWidth*numRow);
 
-	$('.number').height(blockWidth);
+	$('.play .number').height(blockWidthTop);
+
+	$('.tutorial .number').height(blockWidth);
 
 	$('.play .number').css('top',((($('.play').height())-($('body').height()*0.02)-(blockWidth*numRow))/2));
 	$('.instructions').css('top',(blockWidth+($('.tutorial').height()-(blockWidth*3))/2));
@@ -110,17 +114,7 @@ function toPlay(){
 
 		backCount=0;
 
-		if(tutStep==8){
-			clearTimeout(tutInsertTimeout);
-			tutStep=0;
-		}
-
-		if(tutStep==14){
-			clearTimeout(tutTimeout);
-			clearTimeout(tutClassTimeout);
-			$grid[0][0].removeClass('warning');
-			tutStep=0;
-		}
+		clearTutorial();
 
 		clearInterval(bgInterval);
 		setHeight();
@@ -176,19 +170,10 @@ function toMain(){
 			$grid[warnRow][warnCol].removeClass('warning');
 		}
 
-		if(tutStep==8){
-			clearTimeout(tutInsertTimeout);
-			tutStep=0;
-		}
-
-		if(tutStep==14){
-			clearTimeout(tutTimeout);
-			clearTimeout(tutClassTimeout);
-			$grid[0][0].removeClass('warning');
-			tutStep=0;
-		}
+		clearTutorial();
 
 		replay();
+		clearInterval(bgInterval);
 		bgAnimate();
 	});
 }
@@ -271,6 +256,19 @@ function hideOverlay(){
 			timeOut();
 		}
 	});
+}
+
+function clearTutorial(){
+	if(tutStep==8){
+		clearTimeout(tutInsertTimeout);
+    }else if(tutStep==14){
+        clearTimeout(tutTimeout);
+        clearTimeout(tutClassTimeout);
+        $grid[0][0].removeClass('warning');
+    }
+
+    tutStep=0;
+    $('.winner').removeClass('winner');
 }
 
 /*---------------
@@ -555,7 +553,7 @@ function instructions(){
 			$grid[0][1].html('<p>3</p>').addClass('selection').removeClass('highlight');
 			$grid[1][0].html('<p>9</p>').addClass('selection').removeClass('highlight');
 			$grid[1][1].html('<p>2</p>').addClass('selection').removeClass('highlight');
-			$('.instructions p').html('This group will not disappear because 9 is not a multiple of 12.');
+			$('.instructions p').html('This group will not disappear because 12 is not a multiple of 9.');
 			$('.tut-next-container').show();
 		},500);
 	}else if(tutStep==9){
@@ -571,7 +569,7 @@ function instructions(){
 		tutInsert();
 		setRandNum();
 
-		$('.instructions p').html('If you wait 6 seconds, the number will be automatically placed down.');
+		$('.instructions p').html('If you wait 8 seconds, the number will be automatically placed down.');
 		$('.tut-next-container').hide();
 
 		tutClassTimeout=setTimeout(function(){
@@ -858,11 +856,11 @@ function timeOut(){
 							}
 
 						$grid[warnRow][warnCol].addClass('warning');
-					},3000);
+					},5000);
 							
 					warnTimeout=setTimeout(function(){
 								generalInsert($grid[warnRow][warnCol]);
-							},6000);
+							},8000);
 						
 					greg=false;
 					break;
@@ -928,7 +926,7 @@ HANDLE BACK BUTTON
 document.addEventListener('deviceready',onDeviceReady,false);
 
 function onDeviceReady(){
-	//navigator.splashscreen.hide();
+	navigator.splashscreen.hide();
 
 	advertisement();
 	bannerAdShow();
@@ -986,17 +984,7 @@ function onDeviceReady(){
 			$('.highscore-container').hide();
 			$('.main').show();
 
-			if(tutStep==8){
-				clearTimeout(tutInsertTimeout);
-				tutStep=0;
-			}
-
-			if(tutStep==14){
-				clearTimeout(tutTimeout);
-				clearTimeout(tutClassTimeout);
-				$grid[0][0].removeClass('warning');
-				tutStep=0;
-			}
+			clearTutorial();
 		}
 	},false);
 }

@@ -20,7 +20,6 @@ body{
 	background:#222;
 	font-family:'Bungee Hairline';
 	color:#0ff;
-	min-height:600px;
 }
 
 p{
@@ -204,7 +203,7 @@ header{
 }
 
 .main-bg p:nth-child(6){
-	top:15%;
+	top:25%;
 	left:90%;
 }
 
@@ -234,7 +233,7 @@ h1,h2{
 	text-align:center;
 	top:15%;
 	font-family:'Bungee Outline';
-	font-size:2em;
+	font-size:1.75em;
 	text-shadow:0px 0px 15px #0ff;
 }
 
@@ -271,6 +270,10 @@ h1 span:last-child, .game-over h2 span:last-child{
 	font-size:1.25em;
 	box-shadow:0px 0px 15px 0px #0ff;
 	border-radius:50px;
+	-webkit-text-shadow:0px 0px 10px #0ff;
+	-moz-text-shadow:0px 0px 10px #0ff;
+	-ms-text-shadow:0px 0px 10px #0ff;
+	-o-text-shadow:0px 0px 10px #0ff;
 	text-shadow:0px 0px 10px #0ff;
 }
 
@@ -886,7 +889,7 @@ h1 span:last-child, .game-over h2 span:last-child{
 
 .number-area{
 	position:absolute;
-	width:25%;
+	width:20%;
 	height:100%;
 	background:#0ff;
 	box-shadow:0px 0px 10px 0px #0ff;
