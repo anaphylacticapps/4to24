@@ -516,7 +516,6 @@ function tutInsert(){
 			newBlocks();
 			
 			$('.score p').html(score);
-			setHighscore();
 			timeOut();
 		},500);
 	}
