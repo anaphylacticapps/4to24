@@ -611,14 +611,16 @@ HIGHSCORE
 ---------------*/
 
 function setHighscore(){
-	highscore=localStorage.getItem('highscore');
-
-	if(highscore<score || highscore==null){
-		localStorage.setItem('highscore',score);
+	if ($('.tutorial').css('display')=='none'){
 		highscore=localStorage.getItem('highscore');
-	}
 
-	$('.highscore p').html(highscore);
+		if(highscore<score || highscore==null){
+			localStorage.setItem('highscore',score);
+			highscore=localStorage.getItem('highscore');
+		}
+
+		$('.highscore p').html(highscore);
+	}
 }
 
 /*---------------
