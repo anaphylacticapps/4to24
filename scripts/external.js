@@ -577,11 +577,11 @@ function instructions(){
 			}
 
 			$grid[0][0].addClass('warning');
-		},6000);
+		},5000);
 							
 		tutTimeout=setTimeout(function(){
 			generalInsert($grid[0][0]);
-		},9000);
+		},8000);
 	}else if(tutStep==15){
 		$('.instructions p').html('Good luck!');
 		$('.tut-next-container').show();
